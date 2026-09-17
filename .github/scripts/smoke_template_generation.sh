@@ -179,7 +179,9 @@ smoke_side() {
       assert_path_exists "src/main/resources/${mod_id}.mixins.json"
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_no_match 'runClientGameTest' .github/workflows/build.yml
-      assert_no_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
+      # The leaf plugins require an already-applied Loom: they stop applying the base
+      # fabric-mod-conventions plugin themselves, so the generated build must name it.
+      assert_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
       assert_match 'io.github.brainage04.production-gametests' build.gradle
       assert_no_match "^[[:space:]]*id 'io\.github\.brainage04\.client-gametest-recorder'" build.gradle
       assert_match 'pluginManager\.withPlugin\("io\.github\.brainage04\.client-gametest-recorder"\)' build.gradle
@@ -201,7 +203,9 @@ smoke_side() {
       assert_path_exists "src/client/resources/assets/${mod_id}/lang/en_us.json"
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_no_match 'runClientGameTest' .github/workflows/build.yml
-      assert_no_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
+      # The leaf plugins require an already-applied Loom: they stop applying the base
+      # fabric-mod-conventions plugin themselves, so the generated build must name it.
+      assert_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
       assert_match 'io.github.brainage04.client-gametest-recorder' build.gradle
       assert_match 'io.github.brainage04.production-gametests' build.gradle
       assert_match 'io.github.brainage04.workspace-dependencies' build.gradle
@@ -227,7 +231,9 @@ smoke_side() {
       assert_path_exists "src/main/resources/assets/${mod_id}/lang/en_us.json"
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_no_match 'runClientGameTest' .github/workflows/build.yml
-      assert_no_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
+      # The leaf plugins require an already-applied Loom: they stop applying the base
+      # fabric-mod-conventions plugin themselves, so the generated build must name it.
+      assert_match 'io\.github\.brainage04\.fabric-mod-conventions' build.gradle
       assert_match 'io.github.brainage04.client-gametest-recorder' build.gradle
       assert_match 'io.github.brainage04.production-gametests' build.gradle
       assert_match 'io.github.brainage04.workspace-dependencies' build.gradle

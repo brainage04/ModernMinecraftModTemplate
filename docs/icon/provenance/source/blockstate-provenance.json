@@ -1,0 +1,51 @@
+[
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/crafting_table.json",
+    "path": "evidence/modern/crafting_table-blockstate.json",
+    "sha256": "bd75337fe8f663e3c88e5f2490a7217d60925ff7f0001f98656b037441ecdb98"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/brewing_stand.json",
+    "path": "evidence/modern/brewing_stand-blockstate.json",
+    "sha256": "aef0dbe43ab1b9cb7e487c61d04733cb99160104f75e71117d59c93e080f9d12"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/enchanting_table.json",
+    "path": "evidence/modern/enchanting_table-blockstate.json",
+    "sha256": "4c5c82a2d14bda207fc75d7543706495b639b780a087fef557149763c83abdc4"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/chest.json",
+    "path": "evidence/modern/chest-blockstate.json",
+    "sha256": "31abc90fd209dd33ba4fcb30e9b8616883cba29605fcfe0fe829496baa47435a"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/blast_furnace.json",
+    "path": "evidence/modern/blast_furnace-blockstate.json",
+    "sha256": "265ec5f30fa65bdaff6867bbad8de73e0a1b21ea12a33da5b771f889e4ac7dcc"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/smithing_table.json",
+    "path": "evidence/modern/smithing_table-blockstate.json",
+    "sha256": "17af378c163237774cf0e98c95118f9202eebc28d982f3d06fcb30be95e505e7"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/grindstone.json",
+    "path": "evidence/modern/grindstone-blockstate.json",
+    "sha256": "b94f04095c84d58b00133dba6fd5b1f3dd83a6e71120c62b58412606b8ce25a5"
+  }
+]

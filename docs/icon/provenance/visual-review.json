@@ -1,0 +1,12 @@
+{
+  "images_opened": [
+    "modern-hub-down-left-1.png"
+  ],
+  "modern": {
+    "observed": "Seven separated stations retained in the approved positions. Blast-furnace opening and chest latch appear on the screen-left visible face and point down-left. Grindstone retains its canonical 180-degree-symmetric silhouette despite changing west to east. Crafting centre, brewing top-left, enchanting top-right and smithing bottom-right remain unchanged. No introduced supports or connectors.",
+    "result": "accepted"
+  },
+  "facing_scope": "Blocks without a facing blockstate were explicitly exempted by the task. Canonical table/brewing/smithing parent rotations and all their descendants are unchanged, including the approved book pose.",
+  "geometric_proof": "Reopened packed-scene checks compare every vertex, face, UV, material assignment and anchor against blender-m; only directional station parent rotations may differ. Furnace front polygon normals and chest latch centroids independently prove east/down-left. Camera-relative east vector is (-0.70710683,-0.40824819,+0.57735014).",
+  "pixel_proof": "Pillow decoded both 1024x1024 PNGs; all seven station regions contain foreground, projected bounds are disjoint, no foreground lies outside station geometry bounds, and every exempt station crop is pixel-identical to the approved PNG."
+}

@@ -1,0 +1,212 @@
+{
+  "resources": {
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/render-blender.service",
+    "cpu_max": "300000 100000",
+    "cpu_weight": 20,
+    "affinity": [
+      0,
+      2,
+      4
+    ]
+  },
+  "renders": [
+    {
+      "image": "modern-hub-down-left-1.png",
+      "packed_scene": "modern-hub-down-left-1.blend",
+      "source_jar": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+      "textures": [
+        {
+          "image": "blast_furnace_front.png",
+          "jar_member": "assets/minecraft/textures/block/blast_furnace_front.png",
+          "sha256": "df580828cf9079059e167dc13b51713d8029cdcf0f0b20374367c71a805d7f62",
+          "packed_bytes": 248,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "blast_furnace_side.png",
+          "jar_member": "assets/minecraft/textures/block/blast_furnace_side.png",
+          "sha256": "2254b141bca1943258f66bca2ce34d4c7fb5f777d27cb2d5d8d9a4f0ad6f3ab7",
+          "packed_bytes": 238,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "blast_furnace_top.png",
+          "jar_member": "assets/minecraft/textures/block/blast_furnace_top.png",
+          "sha256": "003c4e4c615a20a7f0ba48baf0e9cf3bae55b6a2a387d34e0cff9958aa2420c0",
+          "packed_bytes": 187,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "brewing_stand.png",
+          "jar_member": "assets/minecraft/textures/block/brewing_stand.png",
+          "sha256": "47c941652083abefb8ebed3f74ef8ae1c5616a2053d4e3c9a02e65aa6565be04",
+          "packed_bytes": 279,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "brewing_stand_base.png",
+          "jar_member": "assets/minecraft/textures/block/brewing_stand_base.png",
+          "sha256": "952ed2f04d8f6074a3ec5a431fcb0915897e4278b2ce16feea081f57d649a75c",
+          "packed_bytes": 187,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "crafting_table_front.png",
+          "jar_member": "assets/minecraft/textures/block/crafting_table_front.png",
+          "sha256": "1659c76a33039640e8bd5584af8db04bf626486432a389bcaf1567e1a45c6464",
+          "packed_bytes": 265,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "crafting_table_side.png",
+          "jar_member": "assets/minecraft/textures/block/crafting_table_side.png",
+          "sha256": "e9755fc6da763909b285342eae12c5f7d1cc8462fab695bb157504ea207cda8c",
+          "packed_bytes": 260,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "crafting_table_top.png",
+          "jar_member": "assets/minecraft/textures/block/crafting_table_top.png",
+          "sha256": "251e8aa014e30d040261022895853db3204bba241b9b44c11762628550986f2d",
+          "packed_bytes": 203,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "dark_oak_log.png",
+          "jar_member": "assets/minecraft/textures/block/dark_oak_log.png",
+          "sha256": "b5d28ee7e1c88d8d1719468c9d798157159a82ab84209ec4236373de21496d0e",
+          "packed_bytes": 191,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "enchanting_table_book.png",
+          "jar_member": "assets/minecraft/textures/entity/enchantment/enchanting_table_book.png",
+          "sha256": "8ea11fb9590b0d6e7858ad20adcc196c832af4466601764d6e290d611b0959a0",
+          "packed_bytes": 305,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "enchanting_table_bottom.png",
+          "jar_member": "assets/minecraft/textures/block/enchanting_table_bottom.png",
+          "sha256": "d9c7dc812d8e8b995e22caff2b10c1fc663b5e127a94c20a7476cfd88af2cd82",
+          "packed_bytes": 189,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "enchanting_table_side.png",
+          "jar_member": "assets/minecraft/textures/block/enchanting_table_side.png",
+          "sha256": "fed6f599ec71ce4307f6e9d08985dc40bedec60d50033e32c6a3c80496939a6a",
+          "packed_bytes": 228,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "enchanting_table_top.png",
+          "jar_member": "assets/minecraft/textures/block/enchanting_table_top.png",
+          "sha256": "778573d8e711b0b3be8784a581b74e0ff0fef01163dbef3a858f24cb534ce6cb",
+          "packed_bytes": 175,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "grindstone_pivot.png",
+          "jar_member": "assets/minecraft/textures/block/grindstone_pivot.png",
+          "sha256": "64b2283ea627733eea0ec669f6c983f620be8f22fcb29aa4444d012d860f430c",
+          "packed_bytes": 141,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "grindstone_round.png",
+          "jar_member": "assets/minecraft/textures/block/grindstone_round.png",
+          "sha256": "d353bc51fe47c4b477360ef55f08632d44d6fde713a5c5177dd228119da1b373",
+          "packed_bytes": 150,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "grindstone_side.png",
+          "jar_member": "assets/minecraft/textures/block/grindstone_side.png",
+          "sha256": "bce35de490d1c22c5937abb5264f3bc1bd1629071010787b827b9bd0ddd5ead3",
+          "packed_bytes": 167,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "normal.png",
+          "jar_member": "assets/minecraft/textures/entity/chest/normal.png",
+          "sha256": "ab478534503430192b224ea4d5e1e87b6820198925bb7a7b4bd32f2a8a55c801",
+          "packed_bytes": 811,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "oak_planks.png",
+          "jar_member": "assets/minecraft/textures/block/oak_planks.png",
+          "sha256": "65665943ef9c8bcf63fc67d2083ed0c50243f724106d0e4bb1abea5d921b16d3",
+          "packed_bytes": 195,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "smithing_table_bottom.png",
+          "jar_member": "assets/minecraft/textures/block/smithing_table_bottom.png",
+          "sha256": "d798dfcfaf39b0cc755bb9c30721c3e20ccccde854b2417cf32a48167178d60c",
+          "packed_bytes": 168,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "smithing_table_front.png",
+          "jar_member": "assets/minecraft/textures/block/smithing_table_front.png",
+          "sha256": "f7a5479a3e1d3e3f604ec1b22634736ea952b676fef20e954a9607f15fb13ba0",
+          "packed_bytes": 246,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "smithing_table_side.png",
+          "jar_member": "assets/minecraft/textures/block/smithing_table_side.png",
+          "sha256": "de6b8a0f0da0b27b275371a4fec5f2fbb2aa473ef104a1c5abcc41db4dda5f73",
+          "packed_bytes": 237,
+          "exact_jar_byte_match": true
+        },
+        {
+          "image": "smithing_table_top.png",
+          "jar_member": "assets/minecraft/textures/block/smithing_table_top.png",
+          "sha256": "eb33e51c12200f6af3095d4e039c0692568011b7f5160e35aecd81a598d5e6da",
+          "packed_bytes": 188,
+          "exact_jar_byte_match": true
+        }
+      ],
+      "official_blockstates": [
+        {
+          "file": "evidence/modern/blast_furnace-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/blast_furnace.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/brewing_stand-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/brewing_stand.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/chest-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/chest.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/crafting_table-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/crafting_table.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/enchanting_table-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/enchanting_table.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/grindstone-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/grindstone.json",
+          "exact_jar_byte_match": true
+        },
+        {
+          "file": "evidence/modern/smithing_table-blockstate.json",
+          "jar_member": "assets/minecraft/blockstates/smithing_table.json",
+          "exact_jar_byte_match": true
+        }
+      ]
+    }
+  ]
+}

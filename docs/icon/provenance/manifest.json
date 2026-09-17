@@ -1,0 +1,17 @@
+[
+  {
+    "project": "ModernMinecraftModTemplate",
+    "label": "Modern hub - all directional workstations face down-left",
+    "path": "blender-q/modern-hub-down-left-1.png",
+    "method": "Blender 5.1.1 headless -noaudio; CYCLES CPU; 32 samples; 1024x1024 PNG; 1.506544 s render; 3 threads under shared 3-core CPUWeight 20 cgroup",
+    "source": {
+      "approved": "blender-m/modern-hub-1.png",
+      "script": "blender-q/modern-hub-down-left-1.py",
+      "shared_authoring_script": "blender-q/render_down_left.py",
+      "packed_scene": "blender-q/modern-hub-down-left-1.blend",
+      "immutable_source_scene": "blender-q/source/modern-hub-1.blend",
+      "textures": "Unchanged real Minecraft 26.2 client assets packed in the scene"
+    },
+    "notes": "Every directional block is facing=east. Minecraft +X maps to Blender (0,-1,0) and projects down-left at retained camera yaw45. Same seven positions, alternating differing trio top/bottom-right/bottom-left, canonical meshes/UVs, lighting formula, camera/framing and backgrounds as approved blender-m. Crafting/enchanting/brewing and modern smithing have no facing blockstate and remain canonical; approved book entity pose is retained. Furnace fronts and chest latches are now on the screen-left visible face. See facing-table.csv/json and per-image verification metadata. Local-only saved scripts, no repository commit."
+  }
+]

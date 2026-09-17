@@ -1,0 +1,303 @@
+[
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/crafting_table.json",
+    "path": "assets/modern/assets/minecraft/models/block/crafting_table.json",
+    "sha256": "98e1ff48fd72ed2a820ae4237e6d5193e0cd5ab6abd2338493c7bbbff130dea1"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/cube.json",
+    "path": "assets/modern/assets/minecraft/models/block/cube.json",
+    "sha256": "3e4aacd02e816aeba38f83076596e18ded4cf49c01e17c62d1fce79850ffb84e"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/block.json",
+    "path": "assets/modern/assets/minecraft/models/block/block.json",
+    "sha256": "212df16c5aa3e6aef3f4d3e080532d28a86cf9b2071618e4ca587ee9ef3c6d09"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/oak_planks.png",
+    "path": "assets/modern/assets/minecraft/textures/block/oak_planks.png",
+    "sha256": "65665943ef9c8bcf63fc67d2083ed0c50243f724106d0e4bb1abea5d921b16d3"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/crafting_table_side.png",
+    "path": "assets/modern/assets/minecraft/textures/block/crafting_table_side.png",
+    "sha256": "e9755fc6da763909b285342eae12c5f7d1cc8462fab695bb157504ea207cda8c"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/crafting_table_front.png",
+    "path": "assets/modern/assets/minecraft/textures/block/crafting_table_front.png",
+    "sha256": "1659c76a33039640e8bd5584af8db04bf626486432a389bcaf1567e1a45c6464"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/crafting_table_top.png",
+    "path": "assets/modern/assets/minecraft/textures/block/crafting_table_top.png",
+    "sha256": "251e8aa014e30d040261022895853db3204bba241b9b44c11762628550986f2d"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/blast_furnace.json",
+    "path": "assets/modern/assets/minecraft/models/block/blast_furnace.json",
+    "sha256": "9ad81be0a1639b2b1acb4459dc0e9d6f399c093a7d83f96485f95ed7db685cdd"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/orientable.json",
+    "path": "assets/modern/assets/minecraft/models/block/orientable.json",
+    "sha256": "f3da11f14343fd2cb38fe196dc775d1f4c21284b0dfcf09314659da8f4b6fc79"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/orientable_with_bottom.json",
+    "path": "assets/modern/assets/minecraft/models/block/orientable_with_bottom.json",
+    "sha256": "8da2928f84a31c6986dc31a916b8be736e5b0afdce7b3fbe651ec42771dd7255"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/blast_furnace_front.png",
+    "path": "assets/modern/assets/minecraft/textures/block/blast_furnace_front.png",
+    "sha256": "df580828cf9079059e167dc13b51713d8029cdcf0f0b20374367c71a805d7f62"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/blast_furnace_side.png",
+    "path": "assets/modern/assets/minecraft/textures/block/blast_furnace_side.png",
+    "sha256": "2254b141bca1943258f66bca2ce34d4c7fb5f777d27cb2d5d8d9a4f0ad6f3ab7"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/blast_furnace_top.png",
+    "path": "assets/modern/assets/minecraft/textures/block/blast_furnace_top.png",
+    "sha256": "003c4e4c615a20a7f0ba48baf0e9cf3bae55b6a2a387d34e0cff9958aa2420c0"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/brewing_stand.json",
+    "path": "assets/modern/assets/minecraft/models/block/brewing_stand.json",
+    "sha256": "8337d242a97c15709e35458a43ab5af63bbb127d1c0cc184cfb2c8e2aebd9a37"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/brewing_stand.png",
+    "path": "assets/modern/assets/minecraft/textures/block/brewing_stand.png",
+    "sha256": "47c941652083abefb8ebed3f74ef8ae1c5616a2053d4e3c9a02e65aa6565be04"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/brewing_stand_base.png",
+    "path": "assets/modern/assets/minecraft/textures/block/brewing_stand_base.png",
+    "sha256": "952ed2f04d8f6074a3ec5a431fcb0915897e4278b2ce16feea081f57d649a75c"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/brewing_stand_bottle0.json",
+    "path": "assets/modern/assets/minecraft/models/block/brewing_stand_bottle0.json",
+    "sha256": "b4e146e8768b6151d054f9fb6e5f3e1db4bcb1117ee0b1652e191d3f0098794e"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/brewing_stand_bottle1.json",
+    "path": "assets/modern/assets/minecraft/models/block/brewing_stand_bottle1.json",
+    "sha256": "efe3afe6b03fa35b568c67cb28ba64ca18c97e3387d94513ee8ff7718d104fa2"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/brewing_stand_bottle2.json",
+    "path": "assets/modern/assets/minecraft/models/block/brewing_stand_bottle2.json",
+    "sha256": "d6a680ff05aa4f7667839df246edb1ef28ceeb8a0c7ee2120c8cbd45ff901d30"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/smithing_table.json",
+    "path": "assets/modern/assets/minecraft/models/block/smithing_table.json",
+    "sha256": "04f167bb833dd86c4b13215fdfeeec48ee4a6c3ba5ba1486cb96985d34e46d02"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/smithing_table_bottom.png",
+    "path": "assets/modern/assets/minecraft/textures/block/smithing_table_bottom.png",
+    "sha256": "d798dfcfaf39b0cc755bb9c30721c3e20ccccde854b2417cf32a48167178d60c"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/smithing_table_side.png",
+    "path": "assets/modern/assets/minecraft/textures/block/smithing_table_side.png",
+    "sha256": "de6b8a0f0da0b27b275371a4fec5f2fbb2aa473ef104a1c5abcc41db4dda5f73"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/smithing_table_front.png",
+    "path": "assets/modern/assets/minecraft/textures/block/smithing_table_front.png",
+    "sha256": "f7a5479a3e1d3e3f604ec1b22634736ea952b676fef20e954a9607f15fb13ba0"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/smithing_table_top.png",
+    "path": "assets/modern/assets/minecraft/textures/block/smithing_table_top.png",
+    "sha256": "eb33e51c12200f6af3095d4e039c0692568011b7f5160e35aecd81a598d5e6da"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/grindstone.json",
+    "path": "assets/modern/assets/minecraft/models/block/grindstone.json",
+    "sha256": "ccf94b958801bfe35eaf006e275922797ecb1ac498862bbb93a24006dcbef3ac"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/grindstone_pivot.png",
+    "path": "assets/modern/assets/minecraft/textures/block/grindstone_pivot.png",
+    "sha256": "64b2283ea627733eea0ec669f6c983f620be8f22fcb29aa4444d012d860f430c"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/grindstone_round.png",
+    "path": "assets/modern/assets/minecraft/textures/block/grindstone_round.png",
+    "sha256": "d353bc51fe47c4b477360ef55f08632d44d6fde713a5c5177dd228119da1b373"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/grindstone_side.png",
+    "path": "assets/modern/assets/minecraft/textures/block/grindstone_side.png",
+    "sha256": "bce35de490d1c22c5937abb5264f3bc1bd1629071010787b827b9bd0ddd5ead3"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/dark_oak_log.png",
+    "path": "assets/modern/assets/minecraft/textures/block/dark_oak_log.png",
+    "sha256": "b5d28ee7e1c88d8d1719468c9d798157159a82ab84209ec4236373de21496d0e"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/models/block/enchanting_table.json",
+    "path": "assets/modern/assets/minecraft/models/block/enchanting_table.json",
+    "sha256": "d308d836feccce517b11acbc6ad20b2c230fb59b14df776fb54f1381f907060b"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/enchanting_table_bottom.png",
+    "path": "assets/modern/assets/minecraft/textures/block/enchanting_table_bottom.png",
+    "sha256": "d9c7dc812d8e8b995e22caff2b10c1fc663b5e127a94c20a7476cfd88af2cd82"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/enchanting_table_top.png",
+    "path": "assets/modern/assets/minecraft/textures/block/enchanting_table_top.png",
+    "sha256": "778573d8e711b0b3be8784a581b74e0ff0fef01163dbef3a858f24cb534ce6cb"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/enchanting_table_side.png",
+    "path": "assets/modern/assets/minecraft/textures/block/enchanting_table_side.png",
+    "sha256": "fed6f599ec71ce4307f6e9d08985dc40bedec60d50033e32c6a3c80496939a6a"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/crafting_table.json",
+    "path": "assets/modern/assets/minecraft/blockstates/crafting_table.json",
+    "sha256": "bd75337fe8f663e3c88e5f2490a7217d60925ff7f0001f98656b037441ecdb98"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/blast_furnace.json",
+    "path": "assets/modern/assets/minecraft/blockstates/blast_furnace.json",
+    "sha256": "265ec5f30fa65bdaff6867bbad8de73e0a1b21ea12a33da5b771f889e4ac7dcc"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/brewing_stand.json",
+    "path": "assets/modern/assets/minecraft/blockstates/brewing_stand.json",
+    "sha256": "aef0dbe43ab1b9cb7e487c61d04733cb99160104f75e71117d59c93e080f9d12"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/smithing_table.json",
+    "path": "assets/modern/assets/minecraft/blockstates/smithing_table.json",
+    "sha256": "17af378c163237774cf0e98c95118f9202eebc28d982f3d06fcb30be95e505e7"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/grindstone.json",
+    "path": "assets/modern/assets/minecraft/blockstates/grindstone.json",
+    "sha256": "b94f04095c84d58b00133dba6fd5b1f3dd83a6e71120c62b58412606b8ce25a5"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/blockstates/chest.json",
+    "path": "assets/modern/assets/minecraft/blockstates/chest.json",
+    "sha256": "31abc90fd209dd33ba4fcb30e9b8616883cba29605fcfe0fe829496baa47435a"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/entity/chest/normal.png",
+    "path": "assets/modern/assets/minecraft/textures/entity/chest/normal.png",
+    "sha256": "ab478534503430192b224ea4d5e1e87b6820198925bb7a7b4bd32f2a8a55c801"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/entity/chest/ender.png",
+    "path": "assets/modern/assets/minecraft/textures/entity/chest/ender.png",
+    "sha256": "cfe7d0e271d1c728a7e4ab75f85a8c3b9cb8b2fc8cb61f08693d940f6f14b01c"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/entity/enchantment/enchanting_table_book.png",
+    "path": "assets/modern/assets/minecraft/textures/entity/enchantment/enchanting_table_book.png",
+    "sha256": "8ea11fb9590b0d6e7858ad20adcc196c832af4466601764d6e290d611b0959a0"
+  },
+  {
+    "era": "modern",
+    "source": "/home/thomas/.gradle/caches/fabric-loom/26.2/minecraft-merged.jar",
+    "member": "assets/minecraft/textures/block/dirt.png",
+    "path": "assets/modern/assets/minecraft/textures/block/dirt.png",
+    "sha256": "67197d5371efc3ca1638217c38349665dbd5a977b47bfb20075c858dff87d510"
+  }
+]

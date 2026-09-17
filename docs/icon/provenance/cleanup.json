@@ -1,0 +1,16 @@
+{
+  "write_scope": ".local-icon-variants/round3/blender-q/ only",
+  "portfolio_tracked_files_edited": false,
+  "git_commits_created": false,
+  "local_only_authorship": "All source scripts are saved on disk; per-image wrappers and common cutover script are also embedded in the packed .blend. Local-only/no-commit instructions take precedence over the generic committed-script convention.",
+  "render_processes": "One headless Blender process at a time. All render and verification commands exited normally after final successful runs.",
+  "resource_management": "Used the existing shared render-blender.service cgroup after watchdog migration; no new slice or service. Verified CPUWeight=20, cpu.max=300000 100000 and taskset affinity [0,2,4] before scene work; Blender threads=3. Did not change the osu! process or its allocation.",
+  "display_servers_started": 0,
+  "audio_sinks_started": 0,
+  "gpu_devices_requested": 0,
+  "owned_long_running_services": [],
+  "temporary_render_files": [],
+  "kept_reproducibility_inputs": "Immutable source/ packed baseline blends, baseline authoring helpers, official blockstate evidence, and provenance hashes are intentional reproduction inputs, not throwaway scaffolding.",
+  "validation": "Both final PNGs opened visually, both packed scenes reopened and verified, 17 legacy and 22 modern packed textures compared byte-for-byte with the official jars, all no-facing station PNG crops identical to approved originals.",
+  "blockers": []
+}

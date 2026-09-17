@@ -1,0 +1,9 @@
+{
+  "approved_source": "blender-m",
+  "sha256": {
+    "modern-hub-1.blend": "f4fde33359b313da69edee4cafa2c6043e1232dce5cfabd2eb535b187ac8ca14",
+    "modern-hub-1.png": "c1585b29e5a940f09fe6e3d2cced570132d4f99d5a1148a3225167cca44c8865"
+  },
+  "copied_blends": "source/",
+  "authoring": "New scenes authored from immutable packed snapshots using saved local Python scripts; no git commits per local-only rule."
+}

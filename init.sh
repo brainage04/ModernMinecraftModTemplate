@@ -221,6 +221,16 @@ fi
     -e "s/ModernMinecraftModTemplate/$mod_name_replacement/g" \
     -e "s/$package_name_placeholder/$package_name_replacement/g" {} +
 
+  # Workflow files live outside src, so they need the same placeholder rewrite as
+  # the sources: release.yml carried the template's CurseForge/Modrinth slug into
+  # every generated repository until this ran here as well.
+  # The capitalised template name is deliberately left alone: build.yml uses it in
+  # repository checks that must stay false in a generated repository.
+  find "$base/.github/workflows" -type f -name '*.yml' -exec sed -i \
+    -e "s/io\.github\.brainage04\.modernminecraftmodtemplate/$package_name_placeholder/g" \
+    -e "s/modernminecraftmodtemplate/$mod_id_replacement/g" \
+    -e "s/$package_name_placeholder/$package_name_replacement/g" {} +
+
   # jq variables in this filter are populated by --arg, not expanded by the shell.
   # shellcheck disable=SC2016
   rewrite_json "$base/src/main/resources/fabric.mod.json" '

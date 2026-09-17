@@ -1,4 +1,7 @@
 plugins {
+	// Applies Loom and owns project identity/dependencies; the recorder, production GameTest
+	// and publishing plugins below build on it and fail to apply without it.
+	id 'io.github.brainage04.fabric-mod-conventions' version "${fabricmoddingconventions_version}"
 	id 'io.github.brainage04.client-gametest-recorder' version "${fabricmoddingconventions_version}"
 	id 'io.github.brainage04.production-gametests' version "${fabricmoddingconventions_version}"
 	id 'io.github.brainage04.workspace-dependencies' version "${fabricmoddingconventions_version}"

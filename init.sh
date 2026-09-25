@@ -336,7 +336,6 @@ fi
       perl -0pi -e 's/For client-side GameTests, run:\n\n```shell\n\.\/gradlew runClientGameTest\n```\n\n.*?scripts\/run-client-gametest-recorded\.sh\n```\n\n//s' "$base"/README.md
       rm -f "$base"/src/gametest/java/"$package_dir"/"$mod_name"ClientGameTest.java
       rm -rf "$base"/src/client
-      rm -f "$base"/run/options.txt
       ;;
     client)
       rewrite_json "$base"/src/main/resources/fabric.mod.json '

@@ -5,7 +5,7 @@ This template includes optional Modrinth publishing as part of `.github/workflow
 After the GitHub release is created, a second job in the same workflow does two things:
 
 1. Creates the Modrinth project if a project with slug `mod_id` does not already exist.
-2. Uploads the built release jar as a Modrinth version if that `mod_version` has not already been uploaded.
+2. Uploads the built Fabric and NeoForge release jars as Modrinth versions if that `mod_version` has not already been uploaded.
 
 The Modrinth job is skipped unless the repository has a `MODRINTH_TOKEN` secret configured.
 
@@ -30,7 +30,7 @@ The release workflow uses the Modrinth API directly:
 
 The workflow reads:
 
-- `src/main/resources/fabric.mod.json` for the project slug, title, fallback description, contact links, licence, and side support inference
+- `fabric/src/main/resources/fabric.mod.json` for the project slug, title, fallback description, contact links, licence, and side support inference
 - `README.md` for the long project description
 - The GitHub repository description for the Modrinth project summary
 - `.modrinth/project.json` for optional Modrinth-specific overrides
@@ -89,7 +89,7 @@ Modrinth categories are separate from loaders. Do not use `fabric` in `categorie
 
 ## Version dependencies
 
-Version dependencies are inferred from `src/main/resources/fabric.mod.json`:
+Version dependencies are inferred from `fabric/src/main/resources/fabric.mod.json`:
 
 - `depends` becomes Modrinth `required`
 - `recommends` and `suggests` become Modrinth `optional`
@@ -147,7 +147,7 @@ The release workflow fetches the remote tag object before reading notes so annot
 
 ## Notes
 
-- The workflow uploads the main release jar from `build/libs` and ignores `*-dev.jar` and `*-sources.jar`.
+- The workflow uploads the Fabric release jar and the NeoForge jar (`<archives_base_name>-neoforge-*.jar`) from `build/libs` and ignores `*-dev.jar` and `*-sources.jar`.
 - If the Modrinth project already exists, it is reused instead of recreated. When a project is newly created, the separate icon sync step is skipped for that release because the create request already uploads the icon.
 - If an existing Modrinth project icon must change and Modrinth rejects the icon replacement, the workflow still publishes the Modrinth version, then fails the job at the end so the stale icon remains visible.
 - If the Modrinth version already exists for the current `mod_version`, publishing is skipped.

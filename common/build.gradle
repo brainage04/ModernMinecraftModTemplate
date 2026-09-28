@@ -1,0 +1,11 @@
+repositories {
+	// Fzzy Config
+	maven { url = "https://maven.fzzyhmstrs.me/" }
+}
+
+dependencies {
+	// Fzzy Config: common code compiles against its loader-neutral API; each loader module ships its own build.
+	compileOnly("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
+		exclude group: "com.terraformersmc", module: "modmenu"
+	}
+}

@@ -1,0 +1,29 @@
+repositories {
+	// DevAuth
+	maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
+
+	// Fzzy Config
+	maven { url = "https://maven.fzzyhmstrs.me/" }
+}
+
+clientGameTestRecorder {
+	guiScale.set("3")
+}
+
+dependencies {
+	// DevAuth
+	runtimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
+
+	// ModMenu
+	implementation "maven.modrinth:modmenu:${rootProject.modmenu_version}"
+
+	// Fzzy Config
+	implementation("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
+		exclude group: "com.terraformersmc", module: "modmenu"
+	}
+
+	productionRuntimeMods("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
+		exclude group: "com.terraformersmc", module: "modmenu"
+	}
+	productionRuntimeMods "maven.modrinth:modmenu:${rootProject.modmenu_version}"
+}

@@ -9,44 +9,16 @@ permissions:
   contents: read
 
 jobs:
-  prepare:
+  distribution:
     permissions:
       contents: write
-    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-release-prepare.yml@v2.4.12
+    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-multiloader-release.yml@v2.4.12
+    with:
+      additional_artifact_pattern: modernminecraftmodtemplate-neoforge-*.jar
+      modrinth_project_id: ${{ vars.MODRINTH_PROJECT_ID }}
+      curseforge_project_id: ${{ vars.CURSEFORGE_PROJECT_ID }}
+      curseforge_project_slug: modernminecraftmodtemplate
     secrets:
       release_token: ${{ secrets.GITHUB_TOKEN }}
-
-  github:
-    needs: prepare
-    permissions:
-      contents: write
-    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-publish-github.yml@v2.4.12
-    with:
-      artifact_file: ${{ needs.prepare.outputs.artifact_file }}
-      release_body: ${{ needs.prepare.outputs.release_body }}
-    secrets:
-      release_token: ${{ secrets.GITHUB_TOKEN }}
-
-  modrinth:
-    needs: prepare
-    permissions:
-      contents: read
-    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-publish-modrinth.yml@v2.4.12
-    with:
-      artifact_file: ${{ needs.prepare.outputs.artifact_file }}
-      release_body: ${{ needs.prepare.outputs.release_body }}
-      project_id: ${{ vars.MODRINTH_PROJECT_ID }}
-    secrets:
       modrinth_token: ${{ secrets.MODRINTH_TOKEN }}
-  curseforge:
-    needs: prepare
-    permissions:
-      contents: read
-    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-publish-curseforge.yml@v2.4.12
-    with:
-      artifact_file: ${{ needs.prepare.outputs.artifact_file }}
-      release_body: ${{ needs.prepare.outputs.release_body }}
-      project_id: ${{ vars.CURSEFORGE_PROJECT_ID }}
-      project_slug: modernminecraftmodtemplate
-    secrets:
       curseforge_token: ${{ secrets.CURSEFORGE_TOKEN }}

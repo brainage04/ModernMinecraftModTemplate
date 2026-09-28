@@ -14,5 +14,6 @@ GitHub Actions checks out tag pushes in a way that can obscure annotated tag con
 
 When updating `fabricmoddingconventions_version`, publish and verify the matching FabricModdingConventions release on Maven Central before changing this template. The release must contain the runtime artifact, every Gradle plugin marker, and every matching plugin implementation module. Update the reusable workflow tags in `.github/workflows/build.yml` to the same version, then run the generated-template smoke matrix before releasing the template.
 
-If `MODRINTH_TOKEN` is configured, the same workflow creates or updates the Modrinth project and publishes the release JAR. If both `CURSEFORGE_TOKEN` and `CURSEFORGE_PROJECT_ID` are configured, it publishes the same JAR to CurseForge.
+The release workflow builds both loader JARs and attaches the Fabric and NeoForge artifacts to the GitHub Release.
+If `MODRINTH_TOKEN` is configured, the same workflow creates or updates the Modrinth project and publishes both loader JARs. If both `CURSEFORGE_TOKEN` and `CURSEFORGE_PROJECT_ID` are configured, it publishes both loader JARs to CurseForge.
 All destinations use the same tag notes. Missing third-party credentials skip only that destination; the GitHub Release still proceeds.

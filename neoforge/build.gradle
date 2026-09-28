@@ -1,0 +1,18 @@
+repositories {
+	// DevAuth
+	maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
+}
+
+dependencies {
+	// DevAuth
+	runtimeOnly("me.djtheredstoner:DevAuth-neoforge:${rootProject.devauth_version}")
+
+	// Fzzy Config, and the Kotlin language provider its NeoForge build requires
+	implementation "maven.modrinth:fzzy-config:${rootProject.fzzy_config_version}+neoforge"
+	runtimeOnly "maven.modrinth:kotlin-lang-forge:${rootProject.kotlin_lang_forge_version}"
+	// Development runs load KotlinLangForge from the classpath before its bundled Kotlin jars are
+	// unpacked, so its language provider needs the standard library (and Fzzy Config the reflection
+	// library next to it) on the classpath itself.
+	runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.kotlin_version}"
+	runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:${rootProject.kotlin_version}"
+}

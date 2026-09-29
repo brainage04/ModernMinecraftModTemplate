@@ -9,7 +9,7 @@ version="${version}"
 displayName="ModernMinecraftModTemplate"
 authors="brainage04"
 description='''My modern Minecraft modding template.'''
-logoFile="assets/modernminecraftmodtemplate/icon.png"
+iconFile="assets/modernminecraftmodtemplate/icon.png"
 displayURL="https://github.com/brainage04/ModernMinecraftModTemplate"
 
 [[mixins]]

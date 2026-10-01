@@ -20,14 +20,8 @@ public final class ModernMinecraftModTemplate {
         ModConfig.init();
         platform.registerCommands(ModCommands::register);
 
-        if (ModConfig.CONFIG.logConfigOnStartup.get()) {
-            LOGGER.info(
-                    "Loaded config: message='{}', mode={}, featuredItem={}, retries={}",
-                    ModConfig.CONFIG.welcomeMessage.get(),
-                    ModConfig.CONFIG.syncMode.get(),
-                    ModConfig.CONFIG.featuredItem.get(),
-                    ModConfig.CONFIG.startupRetries.get()
-            );
+        if (ModConfig.get().logConfigOnStartup) {
+            LOGGER.info("Loaded config: exampleMessage='{}'", ModConfig.get().exampleMessage);
         }
 
         LOGGER.info("{} initialised.", MOD_NAME);

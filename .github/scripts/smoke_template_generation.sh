@@ -209,7 +209,8 @@ smoke_side() {
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_match 'fabricClientGameTests = false' build.gradle
       assert_no_match 'neoForgeGameTests' build.gradle
-      assert_no_match 'maven\.modrinth:modmenu|modmenu_version|clientGameTestRecorder' fabric/build.gradle gradle.properties
+      assert_no_match 'modmenu|terraformersmc|clientGameTestRecorder' fabric/build.gradle gradle.properties
+      assert_match 'me\.shedaniel\.cloth:cloth-config-fabric' fabric/build.gradle
       assert_no_match 'client\.mixins\.json' "$neoforge_mods_toml"
       assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"main\":[\"${package_name}.fabric.${main_class}Fabric\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.mixins.json\"]"
@@ -234,9 +235,11 @@ smoke_side() {
       assert_path_exists "fabric/src/test/java/${package_dir}/command/ExampleCommandTest.java"
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_no_match 'multiLoaderModConventions' build.gradle
-      assert_match 'maven\.modrinth:modmenu' fabric/build.gradle
+      assert_match 'com\.terraformersmc:modmenu' fabric/build.gradle
+      assert_path_exists "fabric/src/client/java/${package_dir}/fabric/ModMenuIntegration.java"
+      assert_match 'IConfigScreenFactory' "neoforge/src/main/java/${package_dir}/neoforge/${main_class}NeoForgeClient.java"
       assert_match "config=\"${mod_id}\\.client\\.mixins\\.json\"" "$neoforge_mods_toml"
-      assert_json_compact "$fabric_mod_json" '.entrypoints | to_entries | sort_by(.key) | from_entries' "{\"client\":[\"${package_name}.fabric.${main_class}FabricClient\"],\"main\":[\"${package_name}.fabric.${main_class}Fabric\"]}"
+      assert_json_compact "$fabric_mod_json" '.entrypoints | to_entries | sort_by(.key) | from_entries' "{\"client\":[\"${package_name}.fabric.${main_class}FabricClient\"],\"main\":[\"${package_name}.fabric.${main_class}Fabric\"],\"modmenu\":[\"${package_name}.fabric.ModMenuIntegration\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.mixins.json\",{\"config\":\"${mod_id}.client.mixins.json\",\"environment\":\"client\"}]"
       assert_json_compact "$fabric_gametest_mod_json" '.entrypoints | to_entries | sort_by(.key) | from_entries' "{\"fabric-client-gametest\":[\"${package_name}.${main_class}ClientGameTest\"],\"fabric-gametest\":[\"${package_name}.${main_class}GameTest\"]}"
     else
@@ -260,12 +263,14 @@ smoke_side() {
       assert_path_exists "${common_resources}/assets/${mod_id}/lang/en_us.json"
       assert_match 'reusable-client-gametests\.yml@' .github/workflows/build.yml
       assert_match 'neoForgeGameTests = false' build.gradle
-      assert_match 'maven\.modrinth:modmenu' fabric/build.gradle
+      assert_match 'com\.terraformersmc:modmenu' fabric/build.gradle
+      assert_path_exists "fabric/src/main/java/${package_dir}/fabric/ModMenuIntegration.java"
+      assert_match 'IConfigScreenFactory' "neoforge/src/main/java/${package_dir}/neoforge/${main_class}NeoForge.java"
       assert_match 'dist = Dist\.CLIENT' "neoforge/src/main/java/${package_dir}/neoforge/${main_class}NeoForge.java"
       assert_no_match 'side="BOTH"' "$neoforge_mods_toml"
       assert_no_match "config=\"${mod_id}\\.mixins\\.json\"" "$neoforge_mods_toml"
       assert_no_match "ExampleClientCommand|ClientModCommands|ExampleClientMixin|${main_class}Client|registerCommands" common fabric neoforge build.gradle README.md
-      assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"client\":[\"${package_name}.fabric.${main_class}Fabric\"]}"
+      assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"client\":[\"${package_name}.fabric.${main_class}Fabric\"],\"modmenu\":[\"${package_name}.fabric.ModMenuIntegration\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.client.mixins.json\"]"
       assert_json_compact "$fabric_gametest_mod_json" '.entrypoints' "{\"fabric-client-gametest\":[\"${package_name}.${main_class}GameTest\"]}"
     fi
@@ -273,6 +278,8 @@ smoke_side() {
     grep -qx "maven_group=${package_name}" gradle.properties
     grep -qx "mod_side=${side}" gradle.properties
     assert_no_match 'net\.fabricmc|net\.neoforged|dev\.architectury' common
+    assert_no_match '(?i)fzzy|kotlin|devauth' README.md build.gradle gradle.properties common fabric neoforge .modrinth
+    assert_match 'cloth_config' "$neoforge_mods_toml"
     assert_no_match 'ExampleConfig' README.md build.gradle gradle.properties LICENSE common fabric neoforge
     assert_no_match 'com\.example|io\.github\.brainage04\.modernminecraftmodtemplate([^_a-z0-9]|$)|io/github/brainage04/modernminecraftmodtemplate([^_a-z0-9]|$)|modernminecraftmodtemplate\.(accesswidener|mixins\.json)|assets/modernminecraftmodtemplate/icon\.png|ModernMinecraftModTemplate([^A-Z0-9-]|$)' README.md build.gradle gradle.properties LICENSE common fabric neoforge
     assert_no_match 'package [^;]*-' common fabric neoforge

@@ -20,6 +20,9 @@
 		],
 		"main": [
 			"io.github.brainage04.modernminecraftmodtemplate.fabric.ModernMinecraftModTemplateFabric"
+		],
+		"modmenu": [
+			"io.github.brainage04.modernminecraftmodtemplate.fabric.ModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -34,7 +37,7 @@
 		"minecraft": "~${minecraft_version}",
 		"java": ">=${java_version}",
 		"fabric-api": "*",
-		"fzzy_config": ">=0.7.6"
+		"cloth-config": ">=${cloth_config_version}"
 	},
 	"accessWidener": "modernminecraftmodtemplate.accesswidener"
 }

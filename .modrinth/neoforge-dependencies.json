@@ -1,5 +1,5 @@
 {
   "depends": {
-    "fzzy_config": ">=0.7.6"
+    "cloth-config": ">=26.2.155"
   }
 }

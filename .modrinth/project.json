@@ -4,8 +4,8 @@
   ],
   "additional_categories": [],
   "dependency_overrides": {
-    "fzzy_config": {
-      "project_slug": "fzzy-config"
+    "cloth-config": {
+      "project_slug": "cloth-config"
     }
   }
 }

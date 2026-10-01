@@ -1,11 +1,11 @@
 repositories {
-	// Fzzy Config
-	maven { url = "https://maven.fzzyhmstrs.me/" }
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.shedaniel.me/" } }
+		filter { includeGroup "me.shedaniel.cloth" }
+	}
 }
 
 dependencies {
-	// Fzzy Config: common code compiles against its loader-neutral API; each loader module ships its own build.
-	compileOnly("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
-		exclude group: "com.terraformersmc", module: "modmenu"
-	}
+	// Cloth Config: common code compiles against its loader-neutral API (AutoConfig); each loader module ships its own build.
+	implementation "me.shedaniel.cloth:cloth-config:${rootProject.cloth_config_version}"
 }

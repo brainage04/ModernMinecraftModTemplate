@@ -2,6 +2,7 @@ package io.github.brainage04.modernminecraftmodtemplate.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import io.github.brainage04.modernminecraftmodtemplate.config.ModConfig;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 
@@ -9,7 +10,7 @@ public class ExampleCommand {
     public static final String COMMAND_NAME = "example";
 
     public static int execute(CommandSourceStack source) {
-        source.sendSuccess(() -> Component.literal("This is an example command."), false);
+        source.sendSuccess(() -> Component.literal(ModConfig.get().exampleMessage), false);
 
         return 1;
     }

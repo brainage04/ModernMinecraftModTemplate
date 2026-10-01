@@ -1,9 +1,12 @@
 repositories {
-	// DevAuth
-	maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
-
-	// Fzzy Config
-	maven { url = "https://maven.fzzyhmstrs.me/" }
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.shedaniel.me/" } }
+		filter { includeGroup "me.shedaniel.cloth" }
+	}
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.terraformersmc.com/releases/" } }
+		filter { includeGroup "com.terraformersmc" }
+	}
 }
 
 clientGameTestRecorder {
@@ -11,19 +14,11 @@ clientGameTestRecorder {
 }
 
 dependencies {
-	// DevAuth
-	runtimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
-
 	// ModMenu
-	implementation "maven.modrinth:modmenu:${rootProject.modmenu_version}"
+	implementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") { exclude group: "net.fabricmc.fabric-api" }
+	productionRuntimeMods("com.terraformersmc:modmenu:${rootProject.modmenu_version}") { exclude group: "net.fabricmc.fabric-api" }
 
-	// Fzzy Config
-	implementation("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
-		exclude group: "com.terraformersmc", module: "modmenu"
-	}
-
-	productionRuntimeMods("me.fzzyhmstrs:fzzy_config:${rootProject.fzzy_config_version}") {
-		exclude group: "com.terraformersmc", module: "modmenu"
-	}
-	productionRuntimeMods "maven.modrinth:modmenu:${rootProject.modmenu_version}"
+	// Cloth Config
+	implementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
+	productionRuntimeMods("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
 }

@@ -103,8 +103,8 @@ If a dependency uses a different Modrinth slug, add an override in `.modrinth/pr
 ```json
 {
   "dependency_overrides": {
-    "fzzy_config": {
-      "project_slug": "fzzy-config"
+    "some-mod-id": {
+      "project_slug": "some-modrinth-slug"
     }
   }
 }

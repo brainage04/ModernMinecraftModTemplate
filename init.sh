@@ -231,7 +231,8 @@ fi
 		| .environment = "*"
 		| .entrypoints = {
 			client: [($package_name + ".fabric." + $main_class + "FabricClient")],
-			main: [($package_name + ".fabric." + $main_class + "Fabric")]
+			main: [($package_name + ".fabric." + $main_class + "Fabric")],
+			modmenu: [($package_name + ".fabric.ModMenuIntegration")]
 		}
 		| .mixins = [
 			($mod_id + ".mixins.json"),
@@ -283,7 +284,7 @@ fi
     both) ;;
     server)
       rewrite_json "$fabric_mod_json" '
-			del(.entrypoints.client)
+			del(.entrypoints.client, .entrypoints.modmenu)
 			| .mixins |= map(select(type != "object" or .environment != "client"))
 		'
       rewrite_json "$fabric_gametest_mod_json" '
@@ -301,8 +302,8 @@ fi
       rm -rf "$common_java/mixin/client" "$common_resources/assets/$mod_id/lang" "$base/fabric/src/client"
       perl -0pi -e 's/\n\[\[mixins\]\]\nconfig="[^"]*\.client\.mixins\.json"\n//' "$neoforge_mods_toml"
 
-      # Mod Menu and the client GameTest recorder only serve a client entrypoint.
-      perl -0pi -e 's/\n\t\/\/ ModMenu\n\timplementation "maven\.modrinth:modmenu:[^\n]*\n//; s/\n\tproductionRuntimeMods "maven\.modrinth:modmenu:[^\n]*//; s/\nclientGameTestRecorder \{\n.*?\n\}\n//s' "$base/fabric/build.gradle"
+      # Mod Menu (with its repository) and the client GameTest recorder only serve a client entrypoint.
+      perl -0pi -e 's/\n\texclusiveContent \{\n\t\tforRepository \{ maven \{ url = "https:\/\/maven\.terraformersmc\.com\/[^\n]*\n[^\n]*\n\t\}//; s/\n\t\/\/ ModMenu\n(?:\t[^\n]*com\.terraformersmc:modmenu:[^\n]*\n)+//; s/\nclientGameTestRecorder \{\n.*?\n\}\n//s' "$base/fabric/build.gradle"
       sed -i '/^modmenu_version=/d' "$base/gradle.properties"
       cat >>"$base/build.gradle" <<'EOF'
 
@@ -314,7 +315,7 @@ EOF
 
       perl -0pi -e 's/ \(`src\/main`, plus `src\/client` for client-only code\)/ (`src\/main`)/' "$base/README.md"
       perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "$base/README.md"
-      sed -i '/Fzzy Config registers the example config screen/d' "$base/README.md"
+      perl -0pi -e 's/ It generates a config screen, opened from Mod Menu on Fabric[^\n]*//' "$base/README.md"
       perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a server command example (`ExampleCommand`) in `common`/' "$base/README.md"
       perl -0pi -e 's/runs the Fabric production client and server GameTests/runs the Fabric production server GameTests/' "$base/README.md"
       perl -0pi -e 's/For client-side GameTests, run:\n.*?(?=# Publishing\n)//s' "$base/README.md"
@@ -322,7 +323,7 @@ EOF
     client)
       rewrite_json "$fabric_mod_json" '
 			.environment = "client"
-			| .entrypoints = {client: [.entrypoints.main[0]]}
+			| .entrypoints = {client: [.entrypoints.main[0]], modmenu: .entrypoints.modmenu}
 			| .mixins |= [
 				.[]
 				| select(type == "object" and .environment == "client")
@@ -348,6 +349,8 @@ EOF
         "$common_java/${mod_name}Client.java" \
         "$common_java/platform/${mod_name}ClientPlatform.java"
       rm -rf "$base/common/src/gametest" "$base/neoforge/src/gametest" "$fabric_test_java/command"
+      # Without a server side, Fabric has a single (client) source set, so the Mod Menu integration moves into it.
+      mv "$base/fabric/src/client/java/$package_dir/fabric/ModMenuIntegration.java" "$fabric_java/fabric/ModMenuIntegration.java"
 
       # The client pieces take over the plain names.
       mv "$common_java/command/ExampleClientCommand.java" "$common_java/command/ExampleCommand.java"
@@ -435,14 +438,8 @@ public final class ${mod_name} {
         ModConfig.init();
         platform.registerClientCommands(ModCommands::register);
 
-        if (ModConfig.CONFIG.logConfigOnStartup.get()) {
-            LOGGER.info(
-                    "Loaded config: message='{}', mode={}, featuredItem={}, retries={}",
-                    ModConfig.CONFIG.welcomeMessage.get(),
-                    ModConfig.CONFIG.syncMode.get(),
-                    ModConfig.CONFIG.featuredItem.get(),
-                    ModConfig.CONFIG.startupRetries.get()
-            );
+        if (ModConfig.get().logConfigOnStartup) {
+            LOGGER.info("Loaded config: exampleMessage='{}'", ModConfig.get().exampleMessage);
         }
 
         initialized = true;
@@ -486,16 +483,23 @@ EOF
 package $package_name.neoforge;
 
 import $package_name.${mod_name};
+import $package_name.config.ModConfig;
 import $package_name.platform.${mod_name}Platform;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(value = ${mod_name}.MOD_ID, dist = Dist.CLIENT)
 public final class ${mod_name}NeoForge implements ${mod_name}Platform {
-    public ${mod_name}NeoForge() {
+    public ${mod_name}NeoForge(ModContainer container) {
         ${mod_name}.initialize(this);
+        container.registerExtensionPoint(
+                IConfigScreenFactory.class,
+                (modContainer, parent) -> AutoConfigClient.getConfigScreen(ModConfig.class, parent).get());
     }
 
     @Override

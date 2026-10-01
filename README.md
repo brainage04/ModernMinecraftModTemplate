@@ -44,10 +44,10 @@ If you run `init.sh` locally and push with your own Git credentials, the script 
 
 For local development after initialisation:
   - Use the Java version configured by `java_version` in `gradle.properties` (`25` by default) or newer for Gradle and Minecraft.
-  - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader.
+  - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
   - `./gradlew :fabric:runServer` and `./gradlew :neoforge:runServer` launch a dedicated server on each loader.
   - `./gradlew runFabricClient` and `./gradlew runNeoForgeClient` launch a development client on each loader.
-  - Fzzy Config registers the example config screen with Mod Menu on Fabric (Mod Menu is included as a development dependency) and with the mod list on NeoForge.
+  - The example config (`ModConfig` in `common`) uses Cloth Config's AutoConfig: it is saved to `config/<mod_id>.json` and the example commands read their message from it. It generates a config screen, opened from Mod Menu on Fabric (Mod Menu is included as a development dependency) and from the mod list on NeoForge.
   - The template includes a server command example (`ExampleCommand`) and a client command example (`ExampleClientCommand`) in `common`, registered on each loader through the platform contract.
 
 # Testing

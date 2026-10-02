@@ -12,7 +12,7 @@ jobs:
   distribution:
     permissions:
       contents: write
-    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-multiloader-release.yml@v2.4.15
+    uses: brainage04/FabricModdingConventions/.github/workflows/reusable-multiloader-release.yml@v2.4.16
     with:
       additional_artifact_pattern: modernminecraftmodtemplate-neoforge-*.jar
       modrinth_project_id: ${{ vars.MODRINTH_PROJECT_ID }}

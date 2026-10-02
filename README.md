@@ -46,7 +46,7 @@ For local development after initialisation:
   - Use the Java version configured by `java_version` in `gradle.properties` (`25` by default) or newer for Gradle and Minecraft.
   - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
   - `./gradlew :fabric:runServer` and `./gradlew :neoforge:runServer` launch a dedicated server on each loader.
-  - `./gradlew runFabricClient` and `./gradlew runNeoForgeClient` launch a development client on each loader.
+  - `./gradlew :fabric:runClient` and `./gradlew :neoforge:runClient` launch a development client on each loader. Tasks that run one loader live in that loader's project (`:fabric:` or `:neoforge:`) under the same name; the root only has tasks spanning both loaders, such as `runAllGameTests`.
   - The example config (`ModConfig` in `common`) uses Cloth Config's AutoConfig: it is saved to `config/<mod_id>.json` and the example commands read their message from it. It generates a config screen, opened from Mod Menu on Fabric (Mod Menu is included as a development dependency) and from the mod list on NeoForge.
   - The template includes a server command example (`ExampleCommand`) and a client command example (`ExampleClientCommand`) in `common`, registered on each loader through the platform contract.
 
@@ -65,17 +65,17 @@ The template includes example tests under `fabric/src/test/java` that show two u
 For integration-style server tests, run:
 
 ```shell
-./gradlew :fabric:runGameTest runNeoForgeGameTests
+./gradlew :fabric:runGameTest :neoforge:runGameTest
 ```
 
 The template includes a minimal server GameTest in `common/src/gametest/java` that checks the example command was registered on the server. Fabric runs it through the `@GameTest` method in `fabric/src/gametest`; NeoForge runs it through the test function registered in `neoforge/src/gametest` and its `test_instance` data.
 Fabric server GameTests also run automatically as part of `./gradlew build`, which is what the included GitHub Actions workflow executes.
-`./gradlew runAllProductionGameTests` runs the Fabric production client and server GameTests and the NeoForge GameTests.
+`./gradlew runAllGameTests` runs the Fabric production client and server GameTests and the NeoForge GameTests.
 
 For client-side GameTests, run:
 
 ```shell
-./gradlew runClientGameTest
+./gradlew :fabric:runProductionClientGameTest
 ```
 
 The template also includes a minimal Fabric client GameTest that boots the client, connects to an in-process dedicated server through FabricModdingConventions's defensive client-join helper, starts the recording handshake, and checks that the client initializer ran in an in-world context.
@@ -93,14 +93,14 @@ Run the client GameTest through Xvfb:
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon runClientGameTest
+./gradlew --no-daemon :fabric:runProductionClientGameTest
 ```
 
 Record the client GameTest through FabricModdingConventions:
 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-./gradlew --no-daemon recordClientGameTest
+./gradlew --no-daemon :fabric:recordClientGameTest
 ```
 
 # Publishing

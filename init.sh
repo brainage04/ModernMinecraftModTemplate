@@ -529,7 +529,7 @@ EOF
       sed -i '/runServer` launch a dedicated server on each loader/d' "$base/README.md"
       perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a client command example (`ExampleCommand`) in `common`/' "$base/README.md"
       sed -i '/Plain unit tests for your own code, such as command registration/d' "$base/README.md"
-      perl -0pi -e 's/For integration-style server tests, run:\n.*?(?=For client-side GameTests, run:\n)/`.\/gradlew runAllProductionGameTests` runs the Fabric production client GameTests.\n\n/s' "$base/README.md"
+      perl -0pi -e 's/For integration-style server tests, run:\n.*?(?=For client-side GameTests, run:\n)/`.\/gradlew runAllGameTests` runs the Fabric production client GameTests.\n\n/s' "$base/README.md"
       ;;
   esac
 

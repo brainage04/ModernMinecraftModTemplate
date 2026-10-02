@@ -283,6 +283,8 @@ smoke_side() {
     assert_no_match 'ExampleConfig' README.md build.gradle gradle.properties LICENSE common fabric neoforge
     assert_no_match 'com\.example|io\.github\.brainage04\.modernminecraftmodtemplate([^_a-z0-9]|$)|io/github/brainage04/modernminecraftmodtemplate([^_a-z0-9]|$)|modernminecraftmodtemplate\.(accesswidener|mixins\.json)|assets/modernminecraftmodtemplate/icon\.png|ModernMinecraftModTemplate([^A-Z0-9-]|$)' README.md build.gradle gradle.properties LICENSE common fabric neoforge
     assert_no_match 'package [^;]*-' common fabric neoforge
+    # Single-loader tasks are :fabric:<task> / :neoforge:<task>; the root only aggregates both loaders.
+    assert_no_match 'runFabricClient|runNeoForgeClient|runNeoForgeGameTests|runAllProductionGameTests|gameTestServer|(^|[^:])(runClientGameTest|recordClientGameTest)' README.md
 
     if [ "${TEMPLATE_SMOKE_SKIP_BUILD:-false}" = "true" ]; then
       echo "Skipping generated ${side} Gradle build."

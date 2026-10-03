@@ -317,7 +317,7 @@ EOF
       perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "$base/README.md"
       perl -0pi -e 's/ It generates a config screen, opened from Mod Menu on Fabric[^\n]*//' "$base/README.md"
       perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a server command example (`ExampleCommand`) in `common`/' "$base/README.md"
-      perl -0pi -e 's/runs the Fabric production client and server GameTests/runs the Fabric production server GameTests/' "$base/README.md"
+      perl -0pi -e 's/the Fabric production server and client GameTests/the Fabric production server GameTests/' "$base/README.md"
       perl -0pi -e 's/For client-side GameTests, run:\n.*?(?=# Publishing\n)//s' "$base/README.md"
       ;;
     client)

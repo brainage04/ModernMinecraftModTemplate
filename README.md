@@ -70,7 +70,7 @@ For integration-style server tests, run:
 
 The template includes a minimal server GameTest in `common/src/gametest/java` that checks the example command was registered on the server. Fabric runs it through the `@GameTest` method in `fabric/src/gametest`; NeoForge runs it through the test function registered in `neoforge/src/gametest` and its `test_instance` data.
 Fabric server GameTests also run automatically as part of `./gradlew build`, which is what the included GitHub Actions workflow executes.
-`./gradlew runAllGameTests` runs the GameTests against the packaged mods: the Fabric production client and server GameTests and `:neoforge:runProductionServerGameTest`, which installs a real NeoForge server and runs the NeoForge GameTests on it against the release JAR.
+`./gradlew runAllGameTests` runs every GameTest, one run at a time: `:fabric:runGameTest` and `:neoforge:runGameTest` in development, then the GameTests against the packaged mods: the Fabric production server and client GameTests and `:neoforge:runProductionServerGameTest`, which installs a real NeoForge server and runs the NeoForge GameTests on it against the release JAR.
 The production runs don't use the development classpath: other mods the packaged mod needs go in `productionRuntimeMods` (Cloth Config in `fabric/build.gradle` and `neoforge/build.gradle`).
 
 For client-side GameTests, run:

@@ -8,4 +8,6 @@ repositories {
 dependencies {
 	// Cloth Config
 	implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.cloth_config_version}"
+	// Mods the production GameTest server (:neoforge:runProductionServerGameTest) loads beside the release JAR
+	productionRuntimeMods "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.cloth_config_version}"
 }

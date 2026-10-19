@@ -1,6 +1,6 @@
 # ModernMinecraftModTemplate
 
-My template for modern Minecraft mods that ship a Fabric JAR and a NeoForge JAR from one codebase, built with the `io.github.brainage04.multiloader-mod-conventions` Gradle plugin from [FabricModdingConventions](https://github.com/brainage04/FabricModdingConventions).
+My template for modern Minecraft mods that ship a Fabric JAR and a NeoForge JAR from one codebase, built with the `io.github.brainage04.multiloader-mod-conventions` Gradle plugin from [MinecraftModConventions](https://github.com/brainage04/MinecraftModConventions).
 
 The project is split into three Gradle modules:
   - `common` holds all mod logic: commands, config, mixins, the access widener, assets and data. It compiles against vanilla Minecraft and never imports `net.fabricmc.*` or `net.neoforged.*`.
@@ -79,7 +79,7 @@ For client-side GameTests, run:
 ./gradlew :fabric:runProductionClientGameTest
 ```
 
-The template also includes a minimal Fabric client GameTest that boots the client, connects to an in-process dedicated server through FabricModdingConventions's defensive client-join helper, starts the recording handshake, and checks that the client initializer ran in an in-world context.
+The template also includes a minimal Fabric client GameTest that boots the client, connects to an in-process dedicated server through MinecraftModConventions's defensive client-join helper, starts the recording handshake, and checks that the client initializer ran in an in-world context.
 When you initialise with `--side=client`, the generated repo keeps this client GameTest path and removes the dedicated-server GameTest path.
 
 On Ubuntu, local headless client GameTests need Xvfb and the same OpenGL/windowing libraries that the GitHub Actions workflow installs. Recorded client GameTests also need ffmpeg and PipeWire tools:
@@ -97,7 +97,7 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon :fabric:runProductionClientGameTest
 ```
 
-Record the client GameTest through FabricModdingConventions:
+Record the client GameTest through MinecraftModConventions:
 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \

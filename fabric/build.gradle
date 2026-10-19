@@ -9,10 +9,6 @@ repositories {
 	}
 }
 
-clientGameTestRecorder {
-	guiScale.set("3")
-}
-
 dependencies {
 	// ModMenu
 	implementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") { exclude group: "net.fabricmc.fabric-api" }

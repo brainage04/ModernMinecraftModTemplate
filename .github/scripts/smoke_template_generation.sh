@@ -32,15 +32,15 @@ copy_template() {
 prepare_conventions_dependency() {
   local target_parent="$1"
   local source
-  local target="$target_parent/FabricModdingConventions"
+  local target="$target_parent/MinecraftModConventions"
 
-  source="$(cd "$template_root/.." && pwd)/FabricModdingConventions"
+  source="$(cd "$template_root/.." && pwd)/MinecraftModConventions"
   if [ ! -d "$source" ]; then
-    echo "Missing sibling FabricModdingConventions checkout at $source" >&2
+    echo "Missing sibling MinecraftModConventions checkout at $source" >&2
     exit 1
   fi
 
-  # Generated projects resolve the convention plugins from ../FabricModdingConventions,
+  # Generated projects resolve the convention plugins from ../MinecraftModConventions,
   # exactly like the template itself.
   if [ ! -e "$target" ]; then
     ln -s "$source" "$target"

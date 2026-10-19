@@ -302,8 +302,8 @@ fi
       rm -rf "$common_java/mixin/client" "$common_resources/assets/$mod_id/lang" "$base/fabric/src/client"
       perl -0pi -e 's/\n\[\[mixins\]\]\nconfig="[^"]*\.client\.mixins\.json"\n//' "$neoforge_mods_toml"
 
-      # Mod Menu (with its repository) and the client GameTest recorder only serve a client entrypoint.
-      perl -0pi -e 's/\n\texclusiveContent \{\n\t\tforRepository \{ maven \{ url = "https:\/\/maven\.terraformersmc\.com\/[^\n]*\n[^\n]*\n\t\}//; s/\n\t\/\/ ModMenu\n(?:\t[^\n]*com\.terraformersmc:modmenu:[^\n]*\n)+//; s/\nclientGameTestRecorder \{\n.*?\n\}\n//s' "$base/fabric/build.gradle"
+      # Mod Menu (with its repository) only serves a client entrypoint.
+      perl -0pi -e 's/\n\texclusiveContent \{\n\t\tforRepository \{ maven \{ url = "https:\/\/maven\.terraformersmc\.com\/[^\n]*\n[^\n]*\n\t\}//; s/\n\t\/\/ ModMenu\n(?:\t[^\n]*com\.terraformersmc:modmenu:[^\n]*\n)+//' "$base/fabric/build.gradle"
       sed -i '/^modmenu_version=/d' "$base/gradle.properties"
       cat >>"$base/build.gradle" <<'EOF'
 

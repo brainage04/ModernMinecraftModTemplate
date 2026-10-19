@@ -12,7 +12,7 @@ The release workflow reads the annotated tag message and uses it as the GitHub r
 If the tag has no annotation text, GitHub auto-generated release notes are used as a fallback.
 GitHub Actions checks out tag pushes in a way that can obscure annotated tag contents, so the workflow fetches the remote tag object before reading the notes.
 
-When updating `fabricmoddingconventions_version`, publish and verify the matching FabricModdingConventions release on Maven Central before changing this template. The release must contain the runtime artifact, every Gradle plugin marker, and every matching plugin implementation module. Update the reusable workflow tags in `.github/workflows/build.yml` to the same version, then run the generated-template smoke matrix before releasing the template.
+When updating `minecraftmodconventions_version`, publish and verify the matching MinecraftModConventions release on Maven Central before changing this template. The release must contain the runtime artifact, every Gradle plugin marker, and every matching plugin implementation module. Update the reusable workflow tags in `.github/workflows/build.yml` to the same version, then run the generated-template smoke matrix before releasing the template.
 
 The release workflow builds both loader JARs and attaches the Fabric and NeoForge artifacts to the GitHub Release.
 If `MODRINTH_TOKEN` is configured, the same workflow creates or updates the Modrinth project and publishes both loader JARs. If both `CURSEFORGE_TOKEN` and `CURSEFORGE_PROJECT_ID` are configured, it publishes both loader JARs to CurseForge.

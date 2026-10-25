@@ -1,5 +1,5 @@
 {
   "depends": {
-    "cloth-config": ">=26.2.155"
+    "cloth-config": ">=26.3.159"
   }
 }

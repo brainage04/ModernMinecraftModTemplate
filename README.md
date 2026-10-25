@@ -43,6 +43,7 @@ This means repositories initialized through Actions keep the one-shot `init` wor
 If you run `init.sh` locally and push with your own Git credentials, the script also removes the one-shot `init` workflow. The shared client-GameTest workflow remains in every generated repository and skips execution when `mod_side=server`.
 
 For local development after initialisation:
+  - The template targets Minecraft 26.3 with Fabric Loader 0.19.5 and Fabric API 0.165.0+26.3, or NeoForge 26.3.0.99, plus Cloth Config 26.3.159 and (Fabric only) Mod Menu 21.0.0. All of these are set in `gradle.properties`.
   - Use the Java version configured by `java_version` in `gradle.properties` (`25` by default) or newer for Gradle and Minecraft.
   - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
   - `./gradlew :fabric:runServer` and `./gradlew :neoforge:runServer` launch a dedicated server on each loader.
@@ -82,11 +83,12 @@ For client-side GameTests, run:
 The template also includes a minimal Fabric client GameTest that boots the client, connects to an in-process dedicated server through MinecraftModConventions's defensive client-join helper, starts the recording handshake, and checks that the client initializer ran in an in-world context.
 When you initialise with `--side=client`, the generated repo keeps this client GameTest path and removes the dedicated-server GameTest path.
 
-On Ubuntu, local headless client GameTests need Xvfb and the same OpenGL/windowing libraries that the GitHub Actions workflow installs. Recorded client GameTests also need ffmpeg and PipeWire tools:
+On Ubuntu, local headless client GameTests need Xvfb and the same OpenGL/windowing libraries that the GitHub Actions workflow installs. Recorded client GameTests also need ffmpeg and PipeWire tools.
+Minecraft 26.3 opens its window through SDL3; MinecraftModConventions sets `SDL_VIDEO_DRIVER=x11` for every automated client launch, so the client uses Xvfb even on a Wayland desktop:
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y ffmpeg pipewire-bin xvfb mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1
+sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
 ```
 
 Run the client GameTest through Xvfb:

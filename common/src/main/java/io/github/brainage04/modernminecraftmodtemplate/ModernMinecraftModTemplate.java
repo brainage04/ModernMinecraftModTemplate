@@ -13,7 +13,6 @@ public final class ModernMinecraftModTemplate {
 
     private ModernMinecraftModTemplate() {}
 
-    /** Called by each loader's main entrypoint on both physical sides. */
     public static void initialize(ModernMinecraftModTemplatePlatform platform) {
         LOGGER.info("{} initialising on {}...", MOD_NAME, platform.loaderName());
 

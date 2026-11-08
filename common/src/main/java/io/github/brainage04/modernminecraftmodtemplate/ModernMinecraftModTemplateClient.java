@@ -8,7 +8,6 @@ public final class ModernMinecraftModTemplateClient {
 
     private ModernMinecraftModTemplateClient() {}
 
-    /** Called by each loader's client entrypoint on the physical client only. */
     public static void initialize(ModernMinecraftModTemplateClientPlatform platform) {
         platform.registerClientCommands(ClientModCommands::register);
         initialized = true;

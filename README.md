@@ -18,7 +18,7 @@ The easiest way to use this is:
 3. Run the `Initialize Template Repo` workflow.
 4. Choose `both`, `server`, or `client` for the mod side.
 
-However, if you are using a Linux-based operating system, it is possible to clone this repository, and perform a refactor by triggering the `init.sh` script like so:
+On a Linux system you can also clone this repository and initialise it locally with the `init.sh` script:
 Local initialization requires `jq`; metadata changes are applied as validated JSON transformations rather than text substitutions.
 
 ```shell

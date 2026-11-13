@@ -19,7 +19,7 @@ The easiest way to use this is:
 4. Choose `both`, `server`, or `client` for the mod side.
 
 On a Linux system you can also clone this repository and initialise it locally with the `init.sh` script:
-Local initialization requires `jq`; metadata changes are applied as validated JSON transformations rather than text substitutions.
+Local initialization requires `jq`, and its closing `./gradlew spotlessApply` also needs a Java 25 JDK and network access to download Gradle and the build plugins, so pass `--skip-format` where either is missing; metadata changes are applied as validated JSON transformations rather than text substitutions.
 
 ```shell
 ./init.sh [--side=both|server|client] [--skip-format] <mod_name>
@@ -89,13 +89,15 @@ Minecraft 26.3 opens its window through SDL3; MinecraftModConventions sets `SDL_
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
+sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libegl1 libegl-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
 ```
+
+Ubuntu 24.04's Xvfb has no sRGB-capable GLX visual, so SDL's GLX path stops the client with "Couldn't find matching GLX visual"; `SDL_VIDEO_FORCE_EGL=1` sends it through EGL, which finds one.
 
 Run the client GameTest through Xvfb:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon :fabric:runProductionClientGameTest
 ```
@@ -103,7 +105,7 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 Record the client GameTest through MinecraftModConventions:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 ./gradlew --no-daemon :fabric:recordClientGameTest
 ```
 

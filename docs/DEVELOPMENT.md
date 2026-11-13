@@ -17,7 +17,7 @@ GameTest bodies shared by both loaders live in `common/src/gametest/java`.
 ./init.sh [--side=both|server|client] [--skip-format] <mod_name>
 ```
 
-Local initialization requires `jq`. `<mod_name>` is your GitHub repository name/mod name; the GitHub Actions workflow uses the repository name.
+Local initialization requires `jq`, and its closing `./gradlew spotlessApply` also needs a Java 25 JDK and network access to download Gradle and the build plugins; `--skip-format` leaves that step out. `<mod_name>` is your GitHub repository name/mod name; the GitHub Actions workflow uses the repository name.
 Generated packages always use `io.github.brainage04.<mod_id>`, where `<mod_id>` is sanitized from `<mod_name>` so it is safe for Fabric/NeoForge mod IDs and Java package names.
 
 The optional `--side` flag defaults to `both`.
@@ -28,6 +28,7 @@ At the end the script runs `./gradlew spotlessApply`, because the strict quality
 
 The workflow and script are designed to be run once: afterwards they delete the leftover template folders and the `init` script.
 The workflow's `GITHUB_TOKEN` cannot update workflow files, so a repository initialized through Actions keeps the one-shot `init` workflow; do not run it again. Run locally and pushed with your own credentials, the script also removes that workflow.
+The shared client-GameTest workflow remains in every generated repository and skips execution when `mod_side=server`.
 
 ## Building
 
@@ -69,13 +70,15 @@ Minecraft 26.3 opens its window through SDL3; MinecraftModConventions sets `SDL_
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
+sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libegl1 libegl-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
 ```
+
+Ubuntu 24.04's Xvfb has no sRGB-capable GLX visual, so SDL's GLX path stops the client with "Couldn't find matching GLX visual"; `SDL_VIDEO_FORCE_EGL=1` sends it through EGL, which finds one.
 
 Run the client GameTest through Xvfb:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon :fabric:runProductionClientGameTest
 ```
@@ -83,6 +86,6 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 Record the client GameTest through MinecraftModConventions:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 ./gradlew --no-daemon :fabric:recordClientGameTest
 ```

@@ -8,9 +8,14 @@ public final class ModernMinecraftModTemplateGameTests {
 
     public static void exampleCommandIsRegistered(GameTestHelper context) {
         context.assertTrue(
-                context.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild(ExampleCommand.COMMAND_NAME) != null,
-                "Expected the example command to be registered on the dedicated server."
-        );
+                context.getLevel()
+                                .getServer()
+                                .getCommands()
+                                .getDispatcher()
+                                .getRoot()
+                                .getChild(ExampleCommand.COMMAND_NAME)
+                        != null,
+                "Expected the example command to be registered on the dedicated server.");
 
         context.succeed();
     }

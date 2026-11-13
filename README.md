@@ -22,12 +22,13 @@ On a Linux system you can also clone this repository and initialise it locally w
 Local initialization requires `jq`; metadata changes are applied as validated JSON transformations rather than text substitutions.
 
 ```shell
-./init.sh [--side=both|server|client] <mod_name>
+./init.sh [--side=both|server|client] [--skip-format] <mod_name>
 ```
 
 Where `<mod_name>` is your GitHub repository name/mod name.
 The optional `--side` flag defaults to `both`.
 The script records the choice as `mod_side=both|client|server`; the convention plugin derives the Fabric source sets and GameTest tasks from that property.
+At the end the script runs `./gradlew spotlessApply`, because the strict quality checks fail on renamed lines that no longer match google-java-format; `--skip-format` leaves that out.
 Use `--side=server` to generate a server-only repo: it removes the client entrypoints, client commands, client mixins, Mod Menu and the client GameTest.
 Use `--side=client` to generate a client-only repo: it removes the server entrypoints, server command, server mixin and the server GameTests on both loaders.
 When the GitHub Actions workflow initializes a template repository, it uses the repository name as `<mod_name>`.

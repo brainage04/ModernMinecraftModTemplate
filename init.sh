@@ -540,7 +540,7 @@ EOF
       sed -i '/GameTest bodies shared by both loaders live in/d' "${docs[@]}"
       sed -i '/runServer` launch a dedicated server on each loader/d' "${docs[@]}"
       perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a client command example (`ExampleCommand`) in `common`/' "${docs[@]}"
-      sed -i '/Plain unit tests for your own code, such as command registration/d' "${docs[@]}"
+      perl -0pi -e 's/runs the example tests under `fabric\/src\/test\/java`, which show two useful patterns:\n  - Fabric-aware tests that boot Fabric Loader and inspect loaded mod metadata\.\n  - Plain unit tests for your own code, such as command registration\.\n/runs the example test under `fabric\/src\/test\/java`, a Fabric-aware test that boots Fabric Loader and inspects the loaded mod metadata.\n/' "${docs[@]}"
       perl -0pi -e 's/For integration-style server tests, run:\n.*?(?=## Client GameTests\n)/`.\/gradlew runAllGameTests` runs the Fabric production client GameTests.\n\n/s' "${docs[@]}"
       ;;
   esac

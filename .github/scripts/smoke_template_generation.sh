@@ -219,6 +219,7 @@ smoke_side() {
       assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"main\":[\"${package_name}.fabric.${main_class}Fabric\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.mixins.json\"]"
       assert_json_compact "$fabric_gametest_mod_json" '.entrypoints' "{\"fabric-gametest\":[\"${package_name}.${main_class}GameTest\"]}"
+      assert_no_match 'ClientPlatform|ExampleClientCommand|config screen|## Client GameTests|production server and client' README.md docs/DEVELOPMENT.md
     elif [ "$side" = "both" ]; then
       assert_path_exists "${common_java}/${main_class}Client.java"
       assert_path_exists "${common_java}/platform/${main_class}ClientPlatform.java"
@@ -273,7 +274,8 @@ smoke_side() {
       assert_match 'dist = Dist\.CLIENT' "neoforge/src/main/java/${package_dir}/neoforge/${main_class}NeoForge.java"
       assert_no_match 'side="BOTH"' "$neoforge_mods_toml"
       assert_no_match "config=\"${mod_id}\\.mixins\\.json\"" "$neoforge_mods_toml"
-      assert_no_match "ExampleClientCommand|ClientModCommands|ExampleClientMixin|${main_class}Client|registerCommands" common fabric neoforge build.gradle README.md
+      assert_no_match "ExampleClientCommand|ClientModCommands|ExampleClientMixin|${main_class}Client|registerCommands" common fabric neoforge build.gradle README.md docs/DEVELOPMENT.md
+      assert_no_match 'runServer|minimal server GameTest|Plain unit tests|and the NeoForge GameTest registration' README.md docs/DEVELOPMENT.md
       assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"client\":[\"${package_name}.fabric.${main_class}Fabric\"],\"modmenu\":[\"${package_name}.fabric.ModMenuIntegration\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.client.mixins.json\"]"
       assert_json_compact "$fabric_gametest_mod_json" '.entrypoints' "{\"fabric-client-gametest\":[\"${package_name}.${main_class}GameTest\"]}"
@@ -282,13 +284,13 @@ smoke_side() {
     grep -qx "maven_group=${package_name}" gradle.properties
     grep -qx "mod_side=${side}" gradle.properties
     assert_no_match 'net\.fabricmc|net\.neoforged|dev\.architectury' common
-    assert_no_match '(?i)fzzy|kotlin|devauth' README.md build.gradle gradle.properties common fabric neoforge .modrinth
+    assert_no_match '(?i)fzzy|kotlin|devauth' README.md docs/DEVELOPMENT.md build.gradle gradle.properties common fabric neoforge .modrinth
     assert_match 'cloth_config' "$neoforge_mods_toml"
-    assert_no_match 'ExampleConfig' README.md build.gradle gradle.properties LICENSE common fabric neoforge
-    assert_no_match 'com\.example|io\.github\.brainage04\.modernminecraftmodtemplate([^_a-z0-9]|$)|io/github/brainage04/modernminecraftmodtemplate([^_a-z0-9]|$)|modernminecraftmodtemplate\.(accesswidener|mixins\.json)|assets/modernminecraftmodtemplate/icon\.png|ModernMinecraftModTemplate([^A-Z0-9-]|$)' README.md build.gradle gradle.properties LICENSE common fabric neoforge
+    assert_no_match 'ExampleConfig' README.md docs/DEVELOPMENT.md build.gradle gradle.properties LICENSE common fabric neoforge
+    assert_no_match 'com\.example|io\.github\.brainage04\.modernminecraftmodtemplate([^_a-z0-9]|$)|io/github/brainage04/modernminecraftmodtemplate([^_a-z0-9]|$)|modernminecraftmodtemplate\.(accesswidener|mixins\.json)|assets/modernminecraftmodtemplate/icon\.png|ModernMinecraftModTemplate([^A-Z0-9-]|$)' README.md docs/DEVELOPMENT.md build.gradle gradle.properties LICENSE common fabric neoforge
     assert_no_match 'package [^;]*-' common fabric neoforge
     # Single-loader tasks are :fabric:<task> / :neoforge:<task>; the root only aggregates both loaders.
-    assert_no_match 'runFabricClient|runNeoForgeClient|runNeoForgeGameTests|runAllProductionGameTests|gameTestServer|(^|[^:])(runClientGameTest|recordClientGameTest)' README.md
+    assert_no_match 'runFabricClient|runNeoForgeClient|runNeoForgeGameTests|runAllProductionGameTests|gameTestServer|(^|[^:])(runClientGameTest|recordClientGameTest)' README.md docs/DEVELOPMENT.md
 
     if [ "${TEMPLATE_SMOKE_SKIP_BUILD:-false}" = "true" ]; then
       echo "Skipping generated ${side} Gradle build."
@@ -319,7 +321,7 @@ smoke_camel_case_name() {
     assert_path_exists "fabric/src/gametest/java/${package_dir}/${main_class}GameTest.java"
     assert_json_string fabric/src/main/resources/fabric.mod.json '.entrypoints.client[0]' "${package_name}.fabric.${main_class}Fabric"
     assert_json_string fabric/src/gametest/resources/fabric.mod.json '.entrypoints["fabric-client-gametest"][0]' "${package_name}.${main_class}GameTest"
-    assert_no_match 'Minecraftdesignstudio' common fabric neoforge build.gradle gradle.properties README.md
+    assert_no_match 'Minecraftdesignstudio' common fabric neoforge build.gradle gradle.properties README.md docs/DEVELOPMENT.md
   )
 }
 

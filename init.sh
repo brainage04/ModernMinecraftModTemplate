@@ -180,6 +180,13 @@ fi
     "$base/neoforge/src"
   )
 
+  # The README and the development guide both describe the template's files, so every
+  # side-specific edit runs over both.
+  docs=(
+    "$base/README.md"
+    "$base/docs/DEVELOPMENT.md"
+  )
+
   common_java="$base/common/src/main/java/$package_dir"
   common_resources="$base/common/src/main/resources"
   fabric_java="$base/fabric/src/main/java/$package_dir"
@@ -283,7 +290,7 @@ fi
     -e "s#io/github/brainage04/modernminecraftmodtemplate#$package_dir_placeholder#g" \
     -e "s/modernminecraftmodtemplate/$mod_id_replacement/g" \
     -e "s/ModernMinecraftModTemplate/$mod_name_replacement/g" \
-    -e "s#$package_dir_placeholder#$package_dir_replacement#g" "$base/README.md"
+    -e "s#$package_dir_placeholder#$package_dir_replacement#g" "${docs[@]}"
 
   case "$side" in
     both) ;;
@@ -318,12 +325,12 @@ multiLoaderModConventions {
 }
 EOF
 
-      perl -0pi -e 's/ \(`src\/main`, plus `src\/client` for client-only code\)/ (`src\/main`)/' "$base/README.md"
-      perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "$base/README.md"
-      perl -0pi -e 's/ It generates a config screen, opened from Mod Menu on Fabric[^\n]*//' "$base/README.md"
-      perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a server command example (`ExampleCommand`) in `common`/' "$base/README.md"
-      perl -0pi -e 's/the Fabric production server and client GameTests/the Fabric production server GameTests/' "$base/README.md"
-      perl -0pi -e 's/For client-side GameTests, run:\n.*?(?=# Publishing\n)//s' "$base/README.md"
+      perl -0pi -e 's/ \(`src\/main`, plus `src\/client` for client-only code\)/ (`src\/main`)/' "${docs[@]}"
+      perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "${docs[@]}"
+      perl -0pi -e 's/ It generates a config screen, opened from Mod Menu on Fabric[^\n]*//' "${docs[@]}"
+      perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a server command example (`ExampleCommand`) in `common`/' "${docs[@]}"
+      perl -0pi -e 's/the Fabric production server and client GameTests/the Fabric production server GameTests/' "${docs[@]}"
+      perl -0pi -e 's/\n## Client GameTests\n.*//s' "${docs[@]}"
       ;;
     client)
       rewrite_json "$fabric_mod_json" '
@@ -527,14 +534,14 @@ multiLoaderModConventions {
 }
 EOF
 
-      perl -0pi -e 's/ \(`src\/main`, plus `src\/client` for client-only code\)/ (`src\/main`)/' "$base/README.md"
-      perl -0pi -e 's/ \(mirror every access widener entry there\) and the NeoForge GameTest registration\./ (mirror every access widener entry there)./' "$base/README.md"
-      perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "$base/README.md"
-      sed -i '/GameTest bodies shared by both loaders live in/d' "$base/README.md"
-      sed -i '/runServer` launch a dedicated server on each loader/d' "$base/README.md"
-      perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a client command example (`ExampleCommand`) in `common`/' "$base/README.md"
-      sed -i '/Plain unit tests for your own code, such as command registration/d' "$base/README.md"
-      perl -0pi -e 's/For integration-style server tests, run:\n.*?(?=For client-side GameTests, run:\n)/`.\/gradlew runAllGameTests` runs the Fabric production client GameTests.\n\n/s' "$base/README.md"
+      perl -0pi -e 's/ \(`src\/main`, plus `src\/client` for client-only code\)/ (`src\/main`)/' "${docs[@]}"
+      perl -0pi -e 's/ \(mirror every access widener entry there\) and the NeoForge GameTest registration\./ (mirror every access widener entry there)./' "${docs[@]}"
+      perl -0pi -e "s/: \`${mod_name}Platform\` for both sides and \`${mod_name}ClientPlatform\` for the client\\./: \`${mod_name}Platform\`./" "${docs[@]}"
+      sed -i '/GameTest bodies shared by both loaders live in/d' "${docs[@]}"
+      sed -i '/runServer` launch a dedicated server on each loader/d' "${docs[@]}"
+      perl -0pi -e 's/a server command example \(`ExampleCommand`\) and a client command example \(`ExampleClientCommand`\) in `common`/a client command example (`ExampleCommand`) in `common`/' "${docs[@]}"
+      sed -i '/Plain unit tests for your own code, such as command registration/d' "${docs[@]}"
+      perl -0pi -e 's/For integration-style server tests, run:\n.*?(?=## Client GameTests\n)/`.\/gradlew runAllGameTests` runs the Fabric production client GameTests.\n\n/s' "${docs[@]}"
       ;;
   esac
 

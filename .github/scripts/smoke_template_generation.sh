@@ -276,7 +276,7 @@ smoke_side() {
       assert_no_match "config=\"${mod_id}\\.mixins\\.json\"" "$neoforge_mods_toml"
       assert_no_match "ExampleClientCommand|ClientModCommands|ExampleClientMixin|${main_class}Client|registerCommands" common fabric neoforge build.gradle README.md docs/DEVELOPMENT.md
       assert_no_match 'runServer|minimal server GameTest|Plain unit tests|two useful patterns|and the NeoForge GameTest registration' README.md docs/DEVELOPMENT.md
-      assert_match 'runs the example test under `fabric/src/test/java`, a Fabric-aware test' docs/DEVELOPMENT.md
+      assert_match "runs the example test under \`fabric/src/test/java\`, a Fabric-aware test" docs/DEVELOPMENT.md
       assert_json_compact "$fabric_mod_json" '.entrypoints' "{\"client\":[\"${package_name}.fabric.${main_class}Fabric\"],\"modmenu\":[\"${package_name}.fabric.ModMenuIntegration\"]}"
       assert_json_compact "$fabric_mod_json" '.mixins' "[\"${mod_id}.client.mixins.json\"]"
       assert_json_compact "$fabric_gametest_mod_json" '.entrypoints' "{\"fabric-client-gametest\":[\"${package_name}.${main_class}GameTest\"]}"

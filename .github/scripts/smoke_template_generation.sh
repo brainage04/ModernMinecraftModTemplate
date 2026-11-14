@@ -147,11 +147,7 @@ smoke_side() {
       compact_json_in_place "$fabric_gametest_mod_json"
     fi
 
-    local init_args=(--side="$side")
-    if [ "${TEMPLATE_SMOKE_SKIP_BUILD:-false}" = "true" ]; then
-      init_args+=(--skip-format)
-    fi
-    ./init.sh "${init_args[@]}" "ModernMinecraftModTemplate-${side}_42"
+    ./init.sh --side="$side" "ModernMinecraftModTemplate-${side}_42"
 
     assert_path_missing "init.sh"
     assert_path_missing ".github/workflows/init.yml"
@@ -313,7 +309,7 @@ smoke_camel_case_name() {
   (
     cd "$target"
 
-    ./init.sh --side=client --skip-format "MinecraftDesignStudio"
+    ./init.sh --side=client "MinecraftDesignStudio"
 
     assert_path_exists "common/src/main/java/${package_dir}/${main_class}.java"
     assert_path_exists "fabric/src/main/java/${package_dir}/fabric/${main_class}Fabric.java"

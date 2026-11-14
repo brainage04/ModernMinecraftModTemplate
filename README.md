@@ -17,7 +17,7 @@ The template targets Minecraft 26.3 with Fabric Loader 0.19.5 and Fabric API 0.1
 3. Run the `Initialize Template Repo` workflow.
 4. Choose `both`, `server`, or `client` for the mod side.
 
-On a Linux system you can also clone this repository and initialise it locally with `./init.sh [--side=both|server|client] [--skip-format] <mod_name>`; see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+On a Linux system you can also clone this repository and initialise it locally with `./init.sh [--side=both|server|client] <mod_name>`; see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 Players install exactly one of the two JARs, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
 

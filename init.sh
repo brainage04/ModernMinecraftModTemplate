@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: $0 [--side=both|server|client] [--skip-format] <mod_name>"
+  echo "Usage: $0 [--side=both|server|client] <mod_name>"
 }
 
 sanitize_mod_id() {
@@ -62,7 +62,6 @@ sed_escape_path_replacement() {
 side="both"
 positionals=()
 preserve_workflows="${INIT_PRESERVE_WORKFLOWS:-false}"
-format_sources="true"
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -77,10 +76,6 @@ while [ "$#" -gt 0 ]; do
       fi
       side="$2"
       shift 2
-      ;;
-    --skip-format)
-      format_sources="false"
-      shift
       ;;
     -h | --help)
       usage
@@ -561,12 +556,5 @@ EOF
   fi
   rm "$(readlink -f "$0")"
 )
-
-# Renaming changes line lengths, so google-java-format can wrap the renamed sources differently,
-# and the strict quality policy fails the generated mod's build on any unformatted line.
-if [ "$format_sources" = "true" ]; then
-  echo "Formatting the renamed sources with Spotless"
-  (cd "$base" && ./gradlew --no-daemon --quiet spotlessApply)
-fi
 
 echo "Refactor completed successfully"

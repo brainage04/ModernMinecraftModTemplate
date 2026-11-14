@@ -4,8 +4,12 @@
   ],
   "additional_categories": [],
   "dependency_overrides": {
+    "fabric-api": {
+      "curseforge_slug": "fabric-api"
+    },
     "cloth-config": {
-      "project_slug": "cloth-config"
+      "project_slug": "cloth-config",
+      "curseforge_slug": "cloth-config"
     }
   }
 }

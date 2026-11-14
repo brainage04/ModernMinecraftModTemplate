@@ -19,15 +19,16 @@ The easiest way to use this is:
 4. Choose `both`, `server`, or `client` for the mod side.
 
 On a Linux system you can also clone this repository and initialise it locally with the `init.sh` script:
-Local initialization requires `jq`; metadata changes are applied as validated JSON transformations rather than text substitutions.
+Local initialization requires `jq`, and its closing `./gradlew spotlessApply` also needs a Java 25 JDK and network access to download Gradle and the build plugins, so pass `--skip-format` where either is missing; metadata changes are applied as validated JSON transformations rather than text substitutions.
 
 ```shell
-./init.sh [--side=both|server|client] <mod_name>
+./init.sh [--side=both|server|client] [--skip-format] <mod_name>
 ```
 
 Where `<mod_name>` is your GitHub repository name/mod name.
 The optional `--side` flag defaults to `both`.
 The script records the choice as `mod_side=both|client|server`; the convention plugin derives the Fabric source sets and GameTest tasks from that property.
+At the end the script runs `./gradlew spotlessApply`, because the strict quality checks fail on renamed lines that no longer match google-java-format; `--skip-format` leaves that out.
 Use `--side=server` to generate a server-only repo: it removes the client entrypoints, client commands, client mixins, Mod Menu and the client GameTest.
 Use `--side=client` to generate a client-only repo: it removes the server entrypoints, server command, server mixin and the server GameTests on both loaders.
 When the GitHub Actions workflow initializes a template repository, it uses the repository name as `<mod_name>`.
@@ -43,6 +44,7 @@ This means repositories initialized through Actions keep the one-shot `init` wor
 If you run `init.sh` locally and push with your own Git credentials, the script also removes the one-shot `init` workflow. The shared client-GameTest workflow remains in every generated repository and skips execution when `mod_side=server`.
 
 For local development after initialisation:
+  - The template targets Minecraft 26.3 with Fabric Loader 0.19.5 and Fabric API 0.165.0+26.3, or NeoForge 26.3.0.99, plus Cloth Config 26.3.159 and (Fabric only) Mod Menu 21.0.0. All of these are set in `gradle.properties`.
   - Use the Java version configured by `java_version` in `gradle.properties` (`25` by default) or newer for Gradle and Minecraft.
   - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
   - `./gradlew :fabric:runServer` and `./gradlew :neoforge:runServer` launch a dedicated server on each loader.
@@ -82,17 +84,20 @@ For client-side GameTests, run:
 The template also includes a minimal Fabric client GameTest that boots the client, connects to an in-process dedicated server through MinecraftModConventions's defensive client-join helper, starts the recording handshake, and checks that the client initializer ran in an in-world context.
 When you initialise with `--side=client`, the generated repo keeps this client GameTest path and removes the dedicated-server GameTest path.
 
-On Ubuntu, local headless client GameTests need Xvfb and the same OpenGL/windowing libraries that the GitHub Actions workflow installs. Recorded client GameTests also need ffmpeg and PipeWire tools:
+On Ubuntu, local headless client GameTests need Xvfb and the same OpenGL/windowing libraries that the GitHub Actions workflow installs. Recorded client GameTests also need ffmpeg and PipeWire tools.
+Minecraft 26.3 opens its window through SDL3; MinecraftModConventions sets `SDL_VIDEO_DRIVER=x11` for every automated client launch, so the client uses Xvfb even on a Wayland desktop:
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y ffmpeg pipewire-bin xvfb mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1
+sudo apt-get install -y ffmpeg pipewire-bin xvfb x11-utils mesa-utils libflite1 libgl1-mesa-dri libglx-mesa0 libegl1 libegl-mesa0 libxi6 libxrandr2 libxrender1 libxtst6 libxinerama1 libxcursor1 libxxf86vm1 libxss1 libxkbcommon0
 ```
+
+Ubuntu 24.04's Xvfb has no sRGB-capable GLX visual, so SDL's GLX path stops the client with "Couldn't find matching GLX visual"; `SDL_VIDEO_FORCE_EGL=1` sends it through EGL, which finds one.
 
 Run the client GameTest through Xvfb:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon :fabric:runProductionClientGameTest
 ```
@@ -100,7 +105,7 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 Record the client GameTest through MinecraftModConventions:
 
 ```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEO_FORCE_EGL=1 \
 ./gradlew --no-daemon :fabric:recordClientGameTest
 ```
 

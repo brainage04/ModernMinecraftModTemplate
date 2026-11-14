@@ -13,16 +13,20 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(value = ModernMinecraftModTemplate.MOD_ID, dist = Dist.CLIENT)
-public final class ModernMinecraftModTemplateNeoForgeClient implements ModernMinecraftModTemplateClientPlatform {
+public final class ModernMinecraftModTemplateNeoForgeClient
+        implements ModernMinecraftModTemplateClientPlatform {
     public ModernMinecraftModTemplateNeoForgeClient(ModContainer container) {
         ModernMinecraftModTemplateClient.initialize(this);
         container.registerExtensionPoint(
                 IConfigScreenFactory.class,
-                (modContainer, parent) -> AutoConfigClient.getConfigScreen(ModConfig.class, parent).get());
+                (modContainer, parent) ->
+                        AutoConfigClient.getConfigScreen(ModConfig.class, parent).get());
     }
 
     @Override
     public void registerClientCommands(ClientCommandRegistration registration) {
-        NeoForge.EVENT_BUS.addListener((RegisterClientCommandsEvent event) -> registration.register(event.getDispatcher()));
+        NeoForge.EVENT_BUS.addListener(
+                (RegisterClientCommandsEvent event) ->
+                        registration.register(event.getDispatcher()));
     }
 }

@@ -8,4 +8,9 @@ public class ModernMinecraftModTemplateGameTest {
     public void exampleCommandIsRegistered(GameTestHelper context) {
         ModernMinecraftModTemplateGameTests.exampleCommandIsRegistered(context);
     }
+
+    @GameTest
+    public void serverLoadsNoClientMixin(GameTestHelper context) {
+        ModernMinecraftModTemplateGameTests.serverLoadsNoClientMixin(context);
+    }
 }

@@ -36,8 +36,11 @@ public final class ModernMinecraftModTemplateGameTests {
                         .sorted()
                         .map(System::getProperty)
                         .toList();
-        context.assertFalse(
-                registered.isEmpty(),
+        // A config that registered nothing publishes an empty string, so a non-empty list of
+        // strings is not enough: the main config's own list has to name a mixin.
+        String mainConfig = System.getProperty(prefix);
+        context.assertTrue(
+                mainConfig != null && !mainConfig.isEmpty(),
                 "Expected the mixin plugin to register the server mixin; properties: "
                         + System.getProperties().stringPropertyNames().stream()
                                 .filter(name -> name.startsWith("modernminecraftmodtemplate."))

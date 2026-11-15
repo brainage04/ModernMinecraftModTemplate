@@ -181,7 +181,8 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
             return;
         }
         String name =
-                classFile.substring(0, classFile.length() - ".class".length())
+                classFile
+                        .substring(0, classFile.length() - ".class".length())
                         .replace("\\", "/")
                         .replace("/", ".");
         String prefix = mixinPackage + ".";

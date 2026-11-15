@@ -10,18 +10,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ExampleMixin {
     @Inject(at = @At("HEAD"), method = "loadLevel")
     private void init(CallbackInfo info) {}
-
-    @Mixin(MinecraftServer.class)
-    public static class NestedProbe {
-        @Inject(at = @At("HEAD"), method = "loadLevel")
-        private void nested(CallbackInfo info) {
-            System.out.println("NESTED MIXIN APPLIED");
-        }
-    }
-
-    private static final Runnable ANON =
-            new Runnable() {
-                @Override
-                public void run() {}
-            };
 }

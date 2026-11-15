@@ -142,6 +142,11 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
     /**
      * Adds a class file path to {@code found} as a name relative to the mixin package, if it is
      * inside it.
+     *
+     * <p>Inner classes are skipped: an anonymous or nested class of a mixin is part of that mixin,
+     * not a mixin of its own, and Mixin rejects it ("is missing an @Mixin annotation",
+     * MixinInfo.readTargetClasses). A mixin that declares one would otherwise fail the whole
+     * config, which is {@code required}.
      */
     private void addMixin(String classFile, List<String> found) {
         String name =
@@ -151,7 +156,7 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
                         .replace("\\", "/")
                         .replace("/", ".");
         String prefix = mixinPackage + ".";
-        if (name.startsWith(prefix) && !name.endsWith(".")) {
+        if (name.startsWith(prefix) && !name.endsWith(".") && !name.contains("$")) {
             found.add(name.substring(prefix.length()));
         }
     }

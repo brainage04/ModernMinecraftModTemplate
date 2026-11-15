@@ -1,6 +1,9 @@
 package io.github.brainage04.modernminecraftmodtemplate.init;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -13,6 +16,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.objectweb.asm.AnnotationVisitor;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -32,6 +39,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
  */
 public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
     private static final String CLIENT_PACKAGE = "client.";
+    private static final String MIXIN_DESCRIPTOR = "Lorg/spongepowered/asm/mixin/Mixin;";
 
     /**
      * System property prefix under which each config's registered mixins are published, for the
@@ -111,7 +119,7 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
                     new ZipInputStream(Files.newInputStream(Paths.get(URI.create(jarPath))))) {
                 ZipEntry next;
                 while ((next = zis.getNextEntry()) != null) {
-                    addMixin(next.getName(), found);
+                    addMixin(next.getName(), readAll(zis), found);
                     zis.closeEntry();
                 }
             } catch (IOException e) {
@@ -132,28 +140,73 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
         }
         try (Stream<Path> classes = Files.walk(mixinRoot)) {
             classes.filter(Files::isRegularFile)
-                    .map(it -> directory.relativize(it).toString())
-                    .forEach(it -> addMixin(it, found));
+                    .forEach(
+                            it -> {
+                                try {
+                                    addMixin(
+                                            directory.relativize(it).toString(),
+                                            Files.readAllBytes(it),
+                                            found);
+                                } catch (IOException e) {
+                                    throw new UncheckedIOException(e);
+                                }
+                            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private static byte[] readAll(InputStream in) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[8192];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+        return out.toByteArray();
+    }
+
     /**
-     * Adds a class file path to {@code found} as a name relative to the mixin package, if it is
-     * inside it.
+     * Adds a class file to {@code found} as a name relative to the mixin package, if it is inside
+     * that package and carries {@code @Mixin}.
+     *
+     * <p>The annotation decides, not the name: an anonymous or nested class of a mixin is part of
+     * that mixin and Mixin rejects it ("is missing an @Mixin annotation",
+     * MixinInfo.readDeclaredTargets), which fails the whole config because it is {@code required}.
+     * A static nested class that does carry {@code @Mixin} is a mixin of its own and Mixin applies
+     * it, so skipping every name with a {@code $} would silently drop it.
      */
-    private void addMixin(String classFile, List<String> found) {
+    private void addMixin(String classFile, byte[] bytes, List<String> found) {
+        if (!classFile.endsWith(".class")) {
+            return;
+        }
         String name =
-                (classFile.endsWith(".class")
-                                ? classFile.substring(0, classFile.length() - ".class".length())
-                                : classFile)
+                classFile.substring(0, classFile.length() - ".class".length())
                         .replace("\\", "/")
                         .replace("/", ".");
         String prefix = mixinPackage + ".";
-        if (name.startsWith(prefix) && !name.endsWith(".")) {
-            found.add(name.substring(prefix.length()));
+        if (!name.startsWith(prefix) || name.endsWith(".") || !isMixin(bytes)) {
+            return;
         }
+        found.add(name.substring(prefix.length()));
+    }
+
+    private static boolean isMixin(byte[] bytes) {
+        boolean[] annotated = new boolean[1];
+        new ClassReader(bytes)
+                .accept(
+                        new ClassVisitor(Opcodes.ASM9) {
+                            @Override
+                            public AnnotationVisitor visitAnnotation(
+                                    String descriptor, boolean visible) {
+                                if (MIXIN_DESCRIPTOR.equals(descriptor)) {
+                                    annotated[0] = true;
+                                }
+                                return null;
+                            }
+                        },
+                        ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+        return annotated[0];
     }
 
     @Override

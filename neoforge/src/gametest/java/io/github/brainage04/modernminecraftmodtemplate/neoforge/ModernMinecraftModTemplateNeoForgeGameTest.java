@@ -23,5 +23,10 @@ public final class ModernMinecraftModTemplateNeoForgeGameTest {
                 Identifier.fromNamespaceAndPath(
                         ModernMinecraftModTemplate.MOD_ID, "example_command_is_registered"),
                 () -> ModernMinecraftModTemplateGameTests::exampleCommandIsRegistered);
+        event.register(
+                BuiltInRegistries.TEST_FUNCTION.key(),
+                Identifier.fromNamespaceAndPath(
+                        ModernMinecraftModTemplate.MOD_ID, "server_loads_no_client_mixin"),
+                () -> ModernMinecraftModTemplateGameTests::serverLoadsNoClientMixin);
     }
 }

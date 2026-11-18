@@ -19,10 +19,10 @@ The easiest way to use this is:
 4. Choose `both`, `server`, or `client` for the mod side.
 
 On a Linux system you can also clone this repository and initialise it locally with the `init.sh` script:
-Local initialization requires `jq`; metadata changes are applied as validated JSON transformations rather than text substitutions.
+Local initialization requires `jq`, and its closing `./gradlew spotlessApply` also needs a Java 25 JDK and network access to download Gradle and the build plugins; `--skip-format` leaves that step out. Metadata changes are applied as validated JSON transformations rather than text substitutions.
 
 ```shell
-./init.sh [--side=both|server|client] <mod_name>
+./init.sh [--side=both|server|client] [--skip-format] <mod_name>
 ```
 
 Where `<mod_name>` is your GitHub repository name/mod name.
@@ -30,6 +30,7 @@ The optional `--side` flag defaults to `both`.
 The script records the choice as `mod_side=both|client|server`; the convention plugin derives the Fabric source sets and GameTest tasks from that property.
 Use `--side=server` to generate a server-only repo: it removes the client entrypoints, client commands, client mixins, Mod Menu and the client GameTest.
 Use `--side=client` to generate a client-only repo: it removes the server entrypoints, server command, server mixin and the server GameTests on both loaders.
+At the end the script runs `./gradlew spotlessApply`, because the strict quality checks fail on renamed lines that no longer match google-java-format; `--skip-format` leaves that out.
 When the GitHub Actions workflow initializes a template repository, it uses the repository name as `<mod_name>`.
 Generated packages always use `io.github.brainage04.<mod_id>`, where `<mod_id>` is sanitized from `<mod_name>` so it is safe for Fabric/NeoForge mod IDs and Java package names.
 

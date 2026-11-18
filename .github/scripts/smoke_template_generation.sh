@@ -40,8 +40,8 @@ prepare_conventions_dependency() {
     exit 1
   fi
 
-  # Generated projects resolve the convention plugins from ../MinecraftModConventions,
-  # exactly like the template itself.
+  # Generated projects take the convention plugins from ../MinecraftModConventions only with
+  # -PuseLocalConventions, which the smoke build below passes.
   if [ ! -e "$target" ]; then
     ln -s "$source" "$target"
   fi
@@ -169,6 +169,7 @@ smoke_side() {
     assert_match "curseforge_project_slug: ${mod_id}\$" .github/workflows/release.yml
     assert_match "^rootProject\\.name = 'ModernMinecraftModTemplate-${side}_42'\$" settings.gradle
     assert_match 'io\.github\.brainage04\.multiloader-mod-conventions' build.gradle settings.gradle
+    assert_match 'useLocalConventions' settings.gradle
 
     assert_json_string "$fabric_mod_json" '.environment' "$(if [ "$side" = "client" ]; then printf client; else printf '*'; fi)"
     assert_json_string "$fabric_mod_json" '.icon' "assets/${mod_id}/icon.png"
@@ -286,10 +287,12 @@ smoke_side() {
     # Single-loader tasks are :fabric:<task> / :neoforge:<task>; the root only aggregates both loaders.
     assert_no_match 'runFabricClient|runNeoForgeClient|runNeoForgeGameTests|runAllProductionGameTests|gameTestServer|(^|[^:])(runClientGameTest|recordClientGameTest)' README.md
 
+    # The generated project takes the conventions plugins from ../MinecraftModConventions only with
+    # -PuseLocalConventions, so the smoke build passes it to test the checkout this script prepared.
     if [ "${TEMPLATE_SMOKE_SKIP_BUILD:-false}" = "true" ]; then
       echo "Skipping generated ${side} Gradle build."
     else
-      ./gradlew --no-daemon --console=plain build
+      ./gradlew --no-daemon --console=plain -PuseLocalConventions build
     fi
   )
 }

@@ -43,6 +43,7 @@ This means repositories initialized through Actions keep the one-shot `init` wor
 If you run `init.sh` locally and push with your own Git credentials, the script also removes the one-shot `init` workflow. The shared client-GameTest workflow remains in every generated repository and skips execution when `mod_side=server`.
 
 For local development after initialisation:
+  - Plugins come from Maven Central at `minecraftmodconventions_version` in `gradle.properties`. A `../MinecraftModConventions` checkout beside the project is used only with `-PuseLocalConventions`; without it a stale checkout cannot replace that version.
   - Use the Java version configured by `java_version` in `gradle.properties` (`25` by default) or newer for Gradle and Minecraft.
   - `./gradlew build` builds and tests both loaders and collects the Fabric JAR (`<archives_base_name>-<version>.jar`) and the NeoForge JAR (`<archives_base_name>-neoforge-<version>.jar`) in `build/libs`. Players install exactly one of them, matching their loader, plus [Cloth Config](https://modrinth.com/mod/cloth-config) (and Fabric API on Fabric).
   - `./gradlew :fabric:runServer` and `./gradlew :neoforge:runServer` launch a dedicated server on each loader.

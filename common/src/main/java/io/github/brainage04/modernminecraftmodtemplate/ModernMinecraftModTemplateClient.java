@@ -12,7 +12,8 @@ public final class ModernMinecraftModTemplateClient {
         platform.registerClientCommands(ClientModCommands::register);
         initialized = true;
 
-        ModernMinecraftModTemplate.LOGGER.info("{} client initialised.", ModernMinecraftModTemplate.MOD_NAME);
+        ModernMinecraftModTemplate.LOGGER.info(
+                "{} client initialised.", ModernMinecraftModTemplate.MOD_NAME);
     }
 
     public static boolean isInitialized() {

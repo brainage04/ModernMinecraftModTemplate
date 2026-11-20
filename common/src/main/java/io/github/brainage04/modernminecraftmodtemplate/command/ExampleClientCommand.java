@@ -19,9 +19,9 @@ public class ExampleClientCommand {
         return 1;
     }
 
-    public static <S extends SharedSuggestionProvider> void initialize(CommandDispatcher<S> dispatcher) {
-        dispatcher.register(LiteralArgumentBuilder.<S>literal(COMMAND_NAME)
-                .executes(context -> execute())
-        );
+    public static <S extends SharedSuggestionProvider> void initialize(
+            CommandDispatcher<S> dispatcher) {
+        dispatcher.register(
+                LiteralArgumentBuilder.<S>literal(COMMAND_NAME).executes(context -> execute()));
     }
 }

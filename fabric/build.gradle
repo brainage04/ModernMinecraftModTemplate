@@ -18,3 +18,12 @@ dependencies {
 	implementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
 	productionRuntimeMods("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
 }
+
+// A client-only mod has no dedicated server to run, so the run configuration goes with it.
+if (findProperty('mod_side') == 'client') {
+	loom {
+		runs {
+			remove(getByName('server'))
+		}
+	}
+}

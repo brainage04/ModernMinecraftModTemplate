@@ -291,6 +291,36 @@ smoke_side() {
     # Single-loader tasks are :fabric:<task> / :neoforge:<task>; the root only aggregates both loaders.
     assert_no_match 'runFabricClient|runNeoForgeClient|runNeoForgeGameTests|runAllProductionGameTests|gameTestServer|(^|[^:])(runClientGameTest|recordClientGameTest)' README.md
 
+    # The server run configuration follows the side. Loom keeps the task of a removed run and
+    # disables it (LoomTasks.registerRunTasks), so the task's enabled state is what tells the two
+    # apart; --dry-run marks every task SKIPPED either way.
+    # -PuseLocalConventions makes ../MinecraftModConventions an included build, and this callback
+    # runs for that build's root project too, which has no :fabric or :neoforge. Look the projects
+    # up by path and report only the ones that exist.
+    cat >"$tmp_root/run-server-state.gradle" <<'GRADLE'
+gradle.projectsEvaluated {
+    ['fabric', 'neoforge'].each { name ->
+        def project = gradle.rootProject.allprojects.find { it.path == ':' + name }
+        if (project != null) {
+            def task = project.tasks.findByName('runServer')
+            println "RUN_SERVER_ENABLED_" + name.toUpperCase() + "=" + (task != null && task.enabled)
+        }
+    }
+}
+GRADLE
+    run_server_state=$(./gradlew --no-daemon --console=plain -q -PuseLocalConventions -I "$tmp_root/run-server-state.gradle" help | grep '^RUN_SERVER_ENABLED_' || true)
+    for loader in FABRIC NEOFORGE; do
+      if [ "$side" = "client" ]; then
+        expected_state="RUN_SERVER_ENABLED_${loader}=false"
+      else
+        expected_state="RUN_SERVER_ENABLED_${loader}=true"
+      fi
+      if ! printf '%s\n' "$run_server_state" | grep -qx "$expected_state"; then
+        echo "Expected $expected_state for side $side, got: ${run_server_state:-nothing}" >&2
+        exit 1
+      fi
+    done
+
     # The generated project takes the conventions plugins from ../MinecraftModConventions only with
     # -PuseLocalConventions, so the smoke build passes it to test the checkout this script prepared.
     if [ "${TEMPLATE_SMOKE_SKIP_BUILD:-false}" = "true" ]; then

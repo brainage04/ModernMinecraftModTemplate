@@ -11,3 +11,12 @@ dependencies {
 	// Mods the production GameTest server (:neoforge:runProductionServerGameTest) loads beside the release JAR
 	productionRuntimeMods "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.cloth_config_version}"
 }
+
+// A client-only mod has no dedicated server to run, so the run configuration goes with it.
+if (findProperty('mod_side') == 'client') {
+	loom {
+		runs {
+			remove(getByName('server'))
+		}
+	}
+}

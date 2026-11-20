@@ -1,10 +1,8 @@
 {
 	"required": true,
 	"package": "io.github.brainage04.modernminecraftmodtemplate.mixin.client",
+	"plugin": "io.github.brainage04.modernminecraftmodtemplate.init.AutoDiscoveryMixinPlugin",
 	"compatibilityLevel": "JAVA_25",
-	"client": [
-		"ExampleClientMixin"
-	],
 	"injectors": {
 		"defaultRequire": 1
 	},

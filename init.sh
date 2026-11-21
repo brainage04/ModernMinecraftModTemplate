@@ -552,14 +552,18 @@ EOF
   if [ "$preserve_workflows" != "true" ]; then
     rm "$base"/.github/workflows/init.yml
   fi
-  rm "$(readlink -f "$0")"
 )
 
 # Renaming changes line lengths, so google-java-format can wrap the renamed sources differently,
-# and the strict quality policy fails the generated mod's build on any unformatted line.
+# and the strict quality policy fails the generated mod's build on any unformatted line
+# (MinecraftModConventions 3.5.0, JavaQualityConventionsPlugin: strictQuality defaults to true and
+# gates every spotless*Check). This runs before init.sh deletes itself, so a failed format leaves
+# the script in place for a retry.
 if [ "$format_sources" = "true" ]; then
   echo "Formatting the renamed sources with Spotless"
   (cd "$base" && ./gradlew --no-daemon --quiet spotlessApply)
 fi
+
+rm "$(readlink -f "$0")"
 
 echo "Refactor completed successfully"

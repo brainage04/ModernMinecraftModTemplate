@@ -8,7 +8,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
 
-public final class ModernMinecraftModTemplateFabric implements ModInitializer, ModernMinecraftModTemplatePlatform {
+public final class ModernMinecraftModTemplateFabric
+        implements ModInitializer, ModernMinecraftModTemplatePlatform {
     @Override
     public void onInitialize() {
         ModernMinecraftModTemplate.initialize(this);
@@ -21,6 +22,7 @@ public final class ModernMinecraftModTemplateFabric implements ModInitializer, M
 
     @Override
     public void registerCommands(Consumer<CommandDispatcher<CommandSourceStack>> registration) {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> registration.accept(dispatcher));
+        CommandRegistrationCallback.EVENT.register(
+                (dispatcher, registryAccess, environment) -> registration.accept(dispatcher));
     }
 }

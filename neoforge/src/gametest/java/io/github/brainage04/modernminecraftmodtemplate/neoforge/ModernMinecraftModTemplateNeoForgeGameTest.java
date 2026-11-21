@@ -20,8 +20,8 @@ public final class ModernMinecraftModTemplateNeoForgeGameTest {
     public static void registerTestFunctions(RegisterEvent event) {
         event.register(
                 BuiltInRegistries.TEST_FUNCTION.key(),
-                Identifier.fromNamespaceAndPath(ModernMinecraftModTemplate.MOD_ID, "example_command_is_registered"),
-                () -> ModernMinecraftModTemplateGameTests::exampleCommandIsRegistered
-        );
+                Identifier.fromNamespaceAndPath(
+                        ModernMinecraftModTemplate.MOD_ID, "example_command_is_registered"),
+                () -> ModernMinecraftModTemplateGameTests::exampleCommandIsRegistered);
     }
 }

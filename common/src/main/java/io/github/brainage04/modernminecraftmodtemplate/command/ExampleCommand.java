@@ -16,12 +16,8 @@ public class ExampleCommand {
     }
 
     public static void initialize(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(LiteralArgumentBuilder.<CommandSourceStack>literal(COMMAND_NAME)
-                .executes(context ->
-                        execute(
-                                context.getSource()
-                        )
-                )
-        );
+        dispatcher.register(
+                LiteralArgumentBuilder.<CommandSourceStack>literal(COMMAND_NAME)
+                        .executes(context -> execute(context.getSource())));
     }
 }

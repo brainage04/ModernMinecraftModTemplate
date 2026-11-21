@@ -1,10 +1,10 @@
 package io.github.brainage04.modernminecraftmodtemplate.command;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ExampleCommandTest {
     @Test

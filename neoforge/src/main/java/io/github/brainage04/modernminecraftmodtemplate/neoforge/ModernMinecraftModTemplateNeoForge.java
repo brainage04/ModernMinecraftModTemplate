@@ -10,7 +10,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 @Mod(ModernMinecraftModTemplate.MOD_ID)
-public final class ModernMinecraftModTemplateNeoForge implements ModernMinecraftModTemplatePlatform {
+public final class ModernMinecraftModTemplateNeoForge
+        implements ModernMinecraftModTemplatePlatform {
     public ModernMinecraftModTemplateNeoForge() {
         ModernMinecraftModTemplate.initialize(this);
     }
@@ -22,6 +23,7 @@ public final class ModernMinecraftModTemplateNeoForge implements ModernMinecraft
 
     @Override
     public void registerCommands(Consumer<CommandDispatcher<CommandSourceStack>> registration) {
-        NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> registration.accept(event.getDispatcher()));
+        NeoForge.EVENT_BUS.addListener(
+                (RegisterCommandsEvent event) -> registration.accept(event.getDispatcher()));
     }
 }

@@ -27,32 +27,26 @@ public final class ModernMinecraftModTemplateGameTests {
                 AutoDiscoveryMixinPlugin.REGISTERED_PROPERTY
                         + ModernMinecraftModTemplate.class.getPackageName()
                         + ".mixin";
-        // Every config the plugin serves publishes its own list, so read them all: the client
-        // config is a separate config, and a server that loads it registers its mixins under
-        // "<package>.mixin.client", not under the main config's key.
-        List<String> registered =
-                System.getProperties().stringPropertyNames().stream()
-                        .filter(name -> name.startsWith(prefix))
-                        .sorted()
-                        .map(System::getProperty)
-                        .toList();
-        // A config that registered nothing publishes an empty string, so a non-empty list of
-        // strings is not enough: the main config's own list has to name a mixin.
         String mainConfig = System.getProperty(prefix);
         context.assertTrue(
-                mainConfig != null && !mainConfig.isEmpty(),
-                "Expected the mixin plugin to register the server mixin; properties: "
-                        + System.getProperties().stringPropertyNames().stream()
-                                .filter(name -> name.startsWith("modernminecraftmodtemplate."))
-                                .sorted()
-                                .map(name -> name + "=" + System.getProperty(name))
-                                .toList());
-        for (String mixins : registered) {
-            context.assertFalse(
-                    mixins.contains(".mixin.client."),
-                    "A dedicated server registered a client mixin: " + mixins);
-        }
+                mainConfig != null && mainConfig.endsWith(".mixin.ExampleMixin"),
+                "Expected the main config to register ExampleMixin; properties: " + published());
+        // The client config publishes its own key when it runs. Fabric never loads it on a server
+        // (fabric.mod.json marks it "environment": "client"), so the key may be absent; when it is
+        // present, as on NeoForge, it must be empty.
+        String clientConfig = System.getProperty(prefix + ".client");
+        context.assertTrue(
+                clientConfig == null || clientConfig.isEmpty(),
+                "A dedicated server registered a client mixin: " + clientConfig);
 
         context.succeed();
+    }
+
+    private static List<String> published() {
+        return System.getProperties().stringPropertyNames().stream()
+                .filter(name -> name.startsWith("modernminecraftmodtemplate."))
+                .sorted()
+                .map(name -> name + "=" + System.getProperty(name))
+                .toList();
     }
 }

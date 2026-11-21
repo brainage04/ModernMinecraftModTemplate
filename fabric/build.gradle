@@ -20,10 +20,12 @@ dependencies {
 }
 
 // A client-only mod has no dedicated server to run, so the run configuration goes with it.
+// mod_side is the property the convention plugin reads; findByName keeps this a no-op if a
+// future Loom or conventions version stops creating the run.
 if (findProperty('mod_side') == 'client') {
 	loom {
 		runs {
-			remove(getByName('server'))
+			remove(findByName('server'))
 		}
 	}
 }

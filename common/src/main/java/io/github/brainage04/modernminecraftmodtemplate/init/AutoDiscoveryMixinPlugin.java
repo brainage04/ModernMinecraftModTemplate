@@ -29,13 +29,10 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
  * Registers every class in the mixin package as a mixin, so the mixin configurations list none by
  * hand.
  *
- * <p>Mixin calls {@link #getMixins()} once per config, after the environment's side is known
- * (MixinConfig.postInitialise). The config whose package ends in {@code .client} is returned only
- * on the physical client, and the other configs never return a class from a {@code client}
- * sub-package, so a dedicated server loads no client mixin: those name client-only classes, and
- * loading one there fails the server at startup.
- *
- * <p>Adapted from lineargraph/Forge1.8.9Template 09cd2809.
+ * <p>The config whose package ends in {@code .client} is returned only on the physical client, and
+ * the other configs never return a class from a {@code client} sub-package, so a dedicated server
+ * loads no client mixin: those name client-only classes, and loading one there fails the server at
+ * startup. A new client config must therefore end in {@code .client}.
  */
 public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
     private static final String CLIENT_PACKAGE = "client.";
@@ -43,11 +40,12 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
 
     /**
      * System property prefix under which each config's registered mixins are published, for the
-     * GameTest that checks a dedicated server loads no client mixin. A system property, not a
-     * static field: Mixin loads this class in its own class loader, so a field here is not the one
-     * the game code sees.
+     * GameTest that checks a dedicated server loads no client mixin. One key per config, so the
+     * GameTest can tell a config that registered nothing from one that never ran.
      */
-    public static final String REGISTERED_PROPERTY = "modernminecraftmodtemplate.registeredMixins.";
+    public static final String REGISTERED_PROPERTY =
+            AutoDiscoveryMixinPlugin.class.getPackageName().replaceFirst("\\.init$", "")
+                    + ".registeredMixins.";
 
     private String mixinPackage;
     private List<String> mixins;
@@ -92,11 +90,11 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
     /**
      * Adds every class of the mixin package to {@code found}.
      *
-     * <p>The search starts from this class's own resource, not from its code source: a loader may
-     * report a code source that is not where the classes are (NeoForge's TransformingClassLoader
-     * reports the mod's first path), and it need not serve directory resources at all. This class
-     * sits in the same class root as the mixins, so its resource URL gives that root in a
-     * development run (a directory) and in a built jar alike.
+     * <p>The search starts from this class's own resource, not from its code source: a jar URL
+     * serves no directory listing, and a module reader's URL may be a {@code union:} URI, so the
+     * scan reads the class root itself. This class sits in the same class root as the mixins, so
+     * its resource URL gives that root in a development run (a directory) and in a built jar
+     * alike.
      */
     private void collect(List<String> found) {
         String ownResource = getClass().getSimpleName() + ".class";
@@ -119,7 +117,9 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
                     new ZipInputStream(Files.newInputStream(Paths.get(URI.create(jarPath))))) {
                 ZipEntry next;
                 while ((next = zis.getNextEntry()) != null) {
-                    addMixin(next.getName(), readAll(zis), found);
+                    if (next.getName().endsWith(".class")) {
+                        addMixin(next.getName(), readAll(zis), found);
+                    }
                     zis.closeEntry();
                 }
             } catch (IOException e) {
@@ -136,7 +136,8 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
         }
         Path mixinRoot = directory.resolve(mixinPackage.replace(".", "/"));
         if (!Files.isDirectory(mixinRoot)) {
-            return;
+            throw new IllegalStateException(
+                    "Cannot find the mixin package " + mixinPackage + " under " + classRoot);
         }
         try (Stream<Path> classes = Files.walk(mixinRoot)) {
             classes.filter(Files::isRegularFile)
@@ -171,7 +172,7 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
      * that package and carries {@code @Mixin}.
      *
      * <p>The annotation decides, not the name: an anonymous or nested class of a mixin is part of
-     * that mixin and Mixin rejects it ("is missing an @Mixin annotation",
+     * that mixin and Mixin rejects it ("is missing an @Mixin annotation", mixin 0.8.7
      * MixinInfo.readDeclaredTargets), which fails the whole config because it is {@code required}.
      * A static nested class that does carry {@code @Mixin} is a mixin of its own and Mixin applies
      * it, so skipping every name with a {@code $} would silently drop it.
@@ -186,7 +187,7 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
                         .replace("\\", "/")
                         .replace("/", ".");
         String prefix = mixinPackage + ".";
-        if (!name.startsWith(prefix) || name.endsWith(".") || !isMixin(bytes)) {
+        if (!name.startsWith(prefix) || !isMixin(bytes)) {
             return;
         }
         found.add(name.substring(prefix.length()));

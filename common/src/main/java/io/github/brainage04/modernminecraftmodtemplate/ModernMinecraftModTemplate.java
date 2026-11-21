@@ -11,9 +11,19 @@ public final class ModernMinecraftModTemplate {
     public static final String MOD_NAME = "ModernMinecraftModTemplate";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
+    private static volatile ModernMinecraftModTemplatePlatform platform;
+
     private ModernMinecraftModTemplate() {}
 
+    public static ModernMinecraftModTemplatePlatform platform() {
+        if (platform == null) {
+            throw new IllegalStateException(MOD_NAME + " has not been initialised yet");
+        }
+        return platform;
+    }
+
     public static void initialize(ModernMinecraftModTemplatePlatform platform) {
+        ModernMinecraftModTemplate.platform = platform;
         LOGGER.info("{} initialising on {}...", MOD_NAME, platform.loaderName());
 
         ModConfig.init();

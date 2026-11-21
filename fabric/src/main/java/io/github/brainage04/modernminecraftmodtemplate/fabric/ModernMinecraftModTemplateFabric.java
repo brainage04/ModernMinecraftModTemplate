@@ -20,6 +20,11 @@ public final class ModernMinecraftModTemplateFabric implements ModInitializer, M
     }
 
     @Override
+    public boolean loadsClientMixinConfigOnServer() {
+        return false;
+    }
+
+    @Override
     public void registerCommands(Consumer<CommandDispatcher<CommandSourceStack>> registration) {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> registration.accept(dispatcher));
     }

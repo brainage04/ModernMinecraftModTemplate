@@ -338,6 +338,11 @@ GRADLE
       echo "Skipping generated ${side} Gradle build."
     else
       ./gradlew --no-daemon --console=plain -PuseLocalConventions build
+      # A server-only mod has no client mixin config, which is the case the mixin GameTest has to
+      # handle on NeoForge; see ModernMinecraftModTemplatePlatform.loadsClientMixinConfigOnServer.
+      if [ "$side" = "server" ]; then
+        ./gradlew --no-daemon --console=plain -PuseLocalConventions :neoforge:runGameTest
+      fi
     fi
   )
 }

@@ -91,10 +91,9 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
      * Adds every class of the mixin package to {@code found}.
      *
      * <p>The search starts from this class's own resource, not from its code source: a jar URL
-     * serves no directory listing, and a module reader's URL may be a {@code union:} URI, so the
-     * scan reads the class root itself. This class sits in the same class root as the mixins, so
-     * its resource URL gives that root in a development run (a directory) and in a built jar
-     * alike.
+     * serves no directory listing, so the scan reads the class root itself. This class sits in the
+     * same class root as the mixins, so its resource URL gives that root in a development run (a
+     * directory) and in a built jar alike.
      */
     private void collect(List<String> found) {
         String ownResource = getClass().getSimpleName() + ".class";
@@ -137,7 +136,7 @@ public class AutoDiscoveryMixinPlugin implements IMixinConfigPlugin {
         Path mixinRoot = directory.resolve(mixinPackage.replace(".", "/"));
         if (!Files.isDirectory(mixinRoot)) {
             throw new IllegalStateException(
-                    "Cannot find the mixin package " + mixinPackage + " under " + classRoot);
+                    "Cannot find the mixin package " + mixinPackage + " under " + directory);
         }
         try (Stream<Path> classes = Files.walk(mixinRoot)) {
             classes.filter(Files::isRegularFile)

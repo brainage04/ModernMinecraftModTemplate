@@ -23,18 +23,33 @@ public final class ModernMinecraftModTemplateGameTests {
     }
 
     public static void serverLoadsNoClientMixin(GameTestHelper context) {
-        String prefix =
-                AutoDiscoveryMixinPlugin.REGISTERED_PROPERTY
-                        + ModernMinecraftModTemplate.class.getPackageName()
-                        + ".mixin";
+        String mixinPackage = ModernMinecraftModTemplate.class.getPackageName() + ".mixin";
+        String prefix = AutoDiscoveryMixinPlugin.REGISTERED_PROPERTY + mixinPackage;
         String mainConfig = System.getProperty(prefix);
+        List<String> mainMixins = mainConfig == null ? List.of() : List.of(mainConfig.split(","));
         context.assertTrue(
-                mainConfig != null && mainConfig.endsWith(".mixin.ExampleMixin"),
+                mainMixins.contains(mixinPackage + ".ExampleMixin"),
                 "Expected the main config to register ExampleMixin; properties: " + published());
+        context.assertFalse(
+                mainMixins.stream().anyMatch(mixin -> mixin.startsWith(mixinPackage + ".client.")),
+                "The main config registered a client mixin: " + mainConfig);
+        // init.sh --side=server deletes the client config and its neoforge.mods.toml entry, so a
+        // server-only generated mod has nothing to check here.
+        if (ModernMinecraftModTemplate.class.getResource(
+                        "/" + ModernMinecraftModTemplate.MOD_ID + ".client.mixins.json")
+                == null) {
+            context.succeed();
+            return;
+        }
         // The client config publishes its own key when it runs. Fabric never loads it on a server
-        // (fabric.mod.json marks it "environment": "client"), so the key may be absent; when it is
-        // present, as on NeoForge, it must be empty.
+        // (fabric.mod.json marks it "environment": "client"), so the key may be absent there;
+        // neoforge.mods.toml lists it with no side restriction, so NeoForge loads it and it must
+        // publish an empty list.
         String clientConfig = System.getProperty(prefix + ".client");
+        context.assertTrue(
+                clientConfig != null
+                        || !ModernMinecraftModTemplate.platform().loadsClientMixinConfigOnServer(),
+                "Expected the client config to run on this loader; properties: " + published());
         context.assertTrue(
                 clientConfig == null || clientConfig.isEmpty(),
                 "A dedicated server registered a client mixin: " + clientConfig);
@@ -44,7 +59,7 @@ public final class ModernMinecraftModTemplateGameTests {
 
     private static List<String> published() {
         return System.getProperties().stringPropertyNames().stream()
-                .filter(name -> name.startsWith("modernminecraftmodtemplate."))
+                .filter(name -> name.startsWith(AutoDiscoveryMixinPlugin.REGISTERED_PROPERTY))
                 .sorted()
                 .map(name -> name + "=" + System.getProperty(name))
                 .toList();

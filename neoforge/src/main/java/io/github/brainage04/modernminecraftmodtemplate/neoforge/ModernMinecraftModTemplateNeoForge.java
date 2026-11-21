@@ -21,6 +21,11 @@ public final class ModernMinecraftModTemplateNeoForge implements ModernMinecraft
     }
 
     @Override
+    public boolean loadsClientMixinConfigOnServer() {
+        return true;
+    }
+
+    @Override
     public void registerCommands(Consumer<CommandDispatcher<CommandSourceStack>> registration) {
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> registration.accept(event.getDispatcher()));
     }
